@@ -1,10 +1,10 @@
 package com.bymdev.pass2sdk.repository
 
 import com.bymdev.pass2sdk.model.response.AccountResponse
-import io.reactivex.Single
+import io.reactivex.Observable
 
 interface AccountRepository {
 
-    fun getAccount(): Single<AccountResponse>
+    fun getAccount(): Observable<AccountResponse>
 
 }

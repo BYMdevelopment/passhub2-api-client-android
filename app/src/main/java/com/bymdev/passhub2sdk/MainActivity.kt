@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.bymdev.pass2sdk.Pass2SDK
-import com.bymdev.pass2sdk.base.ResultRequest
+import com.bymdev.pass2sdk.core.CallbackWrapper
+import com.bymdev.pass2sdk.core.PassError
 import com.bymdev.pass2sdk.model.response.AuthResponse
 
 class MainActivity : AppCompatActivity() {
@@ -15,22 +16,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Pass2SDK(this.applicationContext).onSignIn("dreamer", "dreamer")
-            .doOnSuccess {
-                if(it.isSuccess() && it.data != null) {
-                    onSignInSuccess(it.data as List<AuthResponse>)
-                } else {
-                    onSignInError(it)
+        Pass2SDK(this.applicationContext)
+            .onSignIn("dreamer1", "dreamer")
+            .subscribeWith(object : CallbackWrapper<List<AuthResponse>>() {
+                override fun onSuccess(result: List<AuthResponse>) {
+                    Log.d(LOG_TAG, "onSuccess = $result")
                 }
-            }.subscribe()
-    }
 
-    private fun onSignInSuccess(response: List<AuthResponse>) {
-        Log.d(LOG_TAG, "onSignInSuccess() response = $response")
-    }
+                override fun onError(error: PassError) {
+                    Log.d(LOG_TAG, "onSuccess = $error")
+                }
 
-    private fun onSignInError(result: ResultRequest<List<AuthResponse>>) {
-        Log.d(LOG_TAG, "onSignInError() errorCode = ${result.errorCode} message = ${result.message}")
+            })
+
     }
 
 }
