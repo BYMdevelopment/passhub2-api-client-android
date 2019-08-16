@@ -1,1 +1,1 @@
-include ':app', ':pass2sdk'
+include ':sample', ':pass2sdk'
