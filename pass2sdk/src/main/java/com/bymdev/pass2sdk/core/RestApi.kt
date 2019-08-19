@@ -2,6 +2,7 @@ package com.bymdev.pass2sdk.core
 
 import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
+import com.bymdev.pass2sdk.model.request.SignUpRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.AuthResponse
 import io.reactivex.Observable
@@ -15,6 +16,10 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("auth/login")
     fun signIn(@Body signInRequestBody: SignInRequestBody) : Observable<List<AuthResponse>>
+
+    @Headers("Content-Type: application/json")
+    @POST("uaa/api/register")
+    fun signUp(@Body signUpRequestBody: SignUpRequestBody) : Observable<Unit>
 
     @POST("auth/logout")
     fun logout(): Observable<Unit>
