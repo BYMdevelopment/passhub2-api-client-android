@@ -1,5 +1,6 @@
 package com.bymdev.pass2sdk.core
 
+import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.AuthResponse
@@ -20,5 +21,9 @@ interface RestApi {
 
     @GET("uaa/api/account")
     fun getAccount(): Observable<AccountResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("uaa/api/account/reset-password/init")
+    fun resetPassword(@Body resetPasswordRequestBody: ResetPasswordRequestBody): Observable<Unit>
 
 }

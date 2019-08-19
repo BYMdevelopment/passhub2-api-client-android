@@ -9,4 +9,6 @@ interface AuthRepository {
 
     fun logout(): Observable<Unit>
 
+    fun resetPassword(email: String): Observable<Unit>
+
 }
