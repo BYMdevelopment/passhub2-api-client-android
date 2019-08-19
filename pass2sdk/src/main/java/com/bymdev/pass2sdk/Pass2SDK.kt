@@ -16,5 +16,6 @@ class Pass2SDK(private val context: Context) {
     fun onSignUp(fName: String, lName: String, email: String, password: String, login: String)
             = authUseCase.signUp(fName, lName, email, password, login)
     fun onLogout() = authUseCase.logout()
+    fun resetPassword(email: String) = authUseCase.resetPassword(email)
 
 }

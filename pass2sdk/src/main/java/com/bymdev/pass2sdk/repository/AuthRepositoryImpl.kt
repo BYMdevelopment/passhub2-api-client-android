@@ -3,6 +3,7 @@ package com.bymdev.pass2sdk.repository
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.applySchedulers
+import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.request.SignUpRequestBody
 import com.bymdev.pass2sdk.model.response.AuthResponse
@@ -30,5 +31,10 @@ class AuthRepositoryImpl(private val context: Context,
             .applySchedulers()
     }
 
+    override fun resetPassword(email: String): Observable<Unit> {
+        return restClient
+            .resetPassword(ResetPasswordRequestBody(email))
+            .applySchedulers()
+    }
 
 }
