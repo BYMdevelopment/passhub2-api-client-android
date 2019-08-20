@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AuthResponse(
 
-    @field:SerializedName("Status")
+    @field:SerializedName("ValidationStatus")
     val status: String? = null,
 
     @field:SerializedName("access_token")

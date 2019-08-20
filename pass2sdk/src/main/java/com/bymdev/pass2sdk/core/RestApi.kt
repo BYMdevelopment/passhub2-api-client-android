@@ -3,13 +3,12 @@ package com.bymdev.pass2sdk.core
 import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.request.SignUpRequestBody
+import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.AuthResponse
+import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RestApi {
 
@@ -30,5 +29,10 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("uaa/api/account/reset-password/init")
     fun resetPassword(@Body resetPasswordRequestBody: ResetPasswordRequestBody): Observable<Unit>
+
+    @Headers("Content-Type: application/json")
+    @POST("vouchers/api/v1/vouchers/{voucherCode}/validate")
+    fun validate(@Path("voucherCode") voucherCode: String,
+                 @Body validationRequestBody: ValidationRequestBody): Observable<ValidationResponse>
 
 }
