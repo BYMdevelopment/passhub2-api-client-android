@@ -6,6 +6,7 @@ import com.bymdev.pass2sdk.model.request.SignUpRequestBody
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.AuthResponse
+import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -32,6 +33,6 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("vouchers/api/v1/vouchers/{voucherCode}/validate")
     fun validate(@Path("voucherCode") voucherCode: String,
-                 @Body validationRequestBody: ValidationRequestBody)
+                 @Body validationRequestBody: ValidationRequestBody): Observable<ValidationResponse>
 
 }
