@@ -15,10 +15,10 @@ class Pass2SDK(private val context: Context) {
     private val authUseCase = Pass2AuthUseCase(AuthRepositoryImpl(context, prefsUseCase))
     private val voucherUseCase = VoucherUseCase(VoucherRepositoryImpl(context))
 
-    fun onSignIn(login: String, password: String) = authUseCase.signIn(login, password)
-    fun onSignUp(fName: String, lName: String, email: String, password: String, login: String)
+    fun signIn(login: String, password: String) = authUseCase.signIn(login, password)
+    fun signUp(fName: String, lName: String, email: String, password: String, login: String)
             = authUseCase.signUp(fName, lName, email, password, login)
-    fun onLogout() = authUseCase.logout()
+    fun logout() = authUseCase.logout()
     fun resetPassword(email: String) = authUseCase.resetPassword(email)
 
     fun validate(voucherCode: String) = voucherUseCase.validate(voucherCode)
