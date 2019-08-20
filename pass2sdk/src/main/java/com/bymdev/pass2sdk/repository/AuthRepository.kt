@@ -7,6 +7,10 @@ interface AuthRepository {
 
     fun signIn(login: String, password: String): Observable<List<AuthResponse>>
 
+    fun signUp(fName: String, lName: String, email: String, password: String, login: String): Observable<Unit>
+
     fun logout(): Observable<Unit>
+
+    fun resetPassword(email: String): Observable<Unit>
 
 }
