@@ -34,7 +34,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @GET("products/api/v1/_search/products/all")
     fun getProducts(@Query("offset") offset: Int,
-                    @Query("page") page: Int): Observable<List<ProductResponse>>
+                    @Query("page") page: Int,
+                    @Query("query") query: String?): Observable<List<ProductResponse>>
 
     @Headers("Content-Type: application/json")
     @POST("vouchers/api/v1/vouchers/{voucherCode}/validate")

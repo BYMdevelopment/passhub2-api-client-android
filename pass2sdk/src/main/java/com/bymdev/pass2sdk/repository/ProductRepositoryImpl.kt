@@ -8,10 +8,22 @@ import io.reactivex.Observable
 
 class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), ProductRepository {
 
-    override fun getProductList(offset: Int, page: Int): Observable<List<ProductResponse>> {
+    override fun getProductList(offset: Int, page: Int, query: String?, searchByFullQuery: Boolean): Observable<List<ProductResponse>> {
+
         return restClient
-            .getProducts(offset, page)
+            .getProducts(offset, page, getQuery(query, searchByFullQuery))
             .applySchedulers()
     }
 
+    private fun getQuery(query: String?, searchByFullQuery: Boolean): String {
+        return if(query == null) {
+            "*"
+        } else {
+            if(!searchByFullQuery) {
+                "*$query*"
+            } else {
+                query
+            }
+        }
+    }
 }
