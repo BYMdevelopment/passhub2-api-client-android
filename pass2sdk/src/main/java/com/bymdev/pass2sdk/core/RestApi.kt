@@ -5,9 +5,9 @@ import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.request.SignUpRequestBody
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
-import com.bymdev.pass2sdk.model.response.AuthResponse
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.ProductResponse
+import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 
