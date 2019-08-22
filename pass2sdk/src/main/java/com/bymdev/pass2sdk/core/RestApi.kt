@@ -32,10 +32,12 @@ interface RestApi {
     fun resetPassword(@Body resetPasswordRequestBody: ResetPasswordRequestBody): Observable<Unit>
 
     @Headers("Content-Type: application/json")
-    @GET("products/api/v1/_search/products/all")
-    fun getProducts(@Query("offset") offset: Int,
-                    @Query("page") page: Int,
-                    @Query("query") query: String?): Observable<List<ProductResponse>>
+    @GET("/orders/api/products/available")
+    fun getAvailableProducts(
+        @Query("query") query: String?,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Observable<List<ProductResponse>>
 
     @Headers("Content-Type: application/json")
     @POST("vouchers/api/v1/vouchers/{voucherCode}/validate")
