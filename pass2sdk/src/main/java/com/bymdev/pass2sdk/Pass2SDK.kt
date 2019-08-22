@@ -54,5 +54,16 @@ class Pass2SDK(private val context: Context) {
 
     fun validate(voucherCode: String) = voucherUseCase.validate(voucherCode)
 
+    /**
+     * Returns access token if exists.
+     * To check if the user already logged in, call this method
+     * if the token is not empty, user logged in
+     * <p>
+     * This method returns {@link String}
+     *
+     * @return  Access Token String
+     */
+    fun getToken() = authUseCase.getToken()
+
 
 }

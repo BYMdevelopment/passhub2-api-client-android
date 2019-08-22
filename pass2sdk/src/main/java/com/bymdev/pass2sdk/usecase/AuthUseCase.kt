@@ -14,4 +14,6 @@ class AuthUseCase(private val authRepository: AuthRepository)  {
 
     fun resetPassword(email: String): Observable<Unit> = authRepository.resetPassword(email)
 
+    fun getToken() = authRepository.getToken()
+
 }

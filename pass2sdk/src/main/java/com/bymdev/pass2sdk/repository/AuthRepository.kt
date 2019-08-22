@@ -13,4 +13,6 @@ interface AuthRepository {
 
     fun resetPassword(email: String): Observable<Unit>
 
+    fun getToken(): String?
+
 }

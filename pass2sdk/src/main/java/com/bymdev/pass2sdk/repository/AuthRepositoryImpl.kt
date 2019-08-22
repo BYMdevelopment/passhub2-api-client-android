@@ -40,4 +40,6 @@ class AuthRepositoryImpl(private val context: Context,
             .applySchedulers()
     }
 
+    override fun getToken() = prefsUseCase.getToken()
+
 }
