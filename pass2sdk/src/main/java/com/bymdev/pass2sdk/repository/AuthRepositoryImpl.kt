@@ -7,11 +7,11 @@ import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.request.SignUpRequestBody
 import com.bymdev.pass2sdk.model.response.AuthResponse
-import com.bymdev.pass2sdk.usecase.Pass2PrefsUseCase
+import com.bymdev.pass2sdk.usecase.PrefsUseCase
 import io.reactivex.Observable
 
 class AuthRepositoryImpl(private val context: Context,
-                         private val prefsUseCase: Pass2PrefsUseCase) : BaseNetworkRepository(context), AuthRepository {
+                         private val prefsUseCase: PrefsUseCase) : BaseNetworkRepository(context), AuthRepository {
 
     override fun logout(): Observable<Unit> {
         return restClient

@@ -7,6 +7,7 @@ import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.AuthResponse
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
+import com.bymdev.pass2sdk.model.response.ProductResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -29,6 +30,14 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("uaa/api/account/reset-password/init")
     fun resetPassword(@Body resetPasswordRequestBody: ResetPasswordRequestBody): Observable<Unit>
+
+    @Headers("Content-Type: application/json")
+    @GET("/orders/api/products/available")
+    fun getAvailableProducts(
+        @Query("query") query: String?,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Observable<List<ProductResponse>>
 
     @Headers("Content-Type: application/json")
     @POST("vouchers/api/v1/vouchers/{voucherCode}/validate")

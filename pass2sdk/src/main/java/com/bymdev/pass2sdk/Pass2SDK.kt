@@ -1,18 +1,26 @@
 package com.bymdev.pass2sdk
 
 import android.content.Context
+import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_OFFSET
+import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_PAGE
+import com.bymdev.pass2sdk.enums.ProductType
+import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.repository.AuthRepositoryImpl
 import com.bymdev.pass2sdk.repository.VoucherRepositoryImpl
-import com.bymdev.pass2sdk.usecase.Pass2AccountUseCase
-import com.bymdev.pass2sdk.usecase.Pass2AuthUseCase
-import com.bymdev.pass2sdk.usecase.Pass2PrefsUseCase
 import com.bymdev.pass2sdk.usecase.VoucherUseCase
+import com.bymdev.pass2sdk.repository.ProductRepositoryImpl
+import com.bymdev.pass2sdk.usecase.AccountUseCase
+import com.bymdev.pass2sdk.usecase.AuthUseCase
+import com.bymdev.pass2sdk.usecase.PrefsUseCase
+import com.bymdev.pass2sdk.usecase.ProductUseCase
+
 
 class Pass2SDK(private val context: Context) {
 
-    private val accountUseCase = Pass2AccountUseCase(context)
-    private val prefsUseCase: Pass2PrefsUseCase = Pass2PrefsUseCase(context)
-    private val authUseCase = Pass2AuthUseCase(AuthRepositoryImpl(context, prefsUseCase))
+    private val accountUseCase = AccountUseCase(context)
+    private var prefsUseCase: PrefsUseCase = PrefsUseCase(context)
+    private val authUseCase = AuthUseCase(AuthRepositoryImpl(context, prefsUseCase))
+    private val productUseCase = ProductUseCase(ProductRepositoryImpl(context))
     private val voucherUseCase = VoucherUseCase(VoucherRepositoryImpl(context))
 
     fun signIn(login: String, password: String) = authUseCase.signIn(login, password)
@@ -20,6 +28,29 @@ class Pass2SDK(private val context: Context) {
             = authUseCase.signUp(fName, lName, email, password, login)
     fun logout() = authUseCase.logout()
     fun resetPassword(email: String) = authUseCase.resetPassword(email)
+
+    /**
+     * Returns a list of products that available for validation
+     * or for sale.
+     * To get a list of products available for sale, call this method
+     * without vendorCode
+     * To get a list of products available for validation, call this method
+     * and pass the vendorCode
+     * <p>
+     * This method returns Observable<List<ProductResponse>>
+     *
+     * @param  vendorCode code of a vendor
+     * @param  productType type of the product
+     * @return  list of products Observable<List<ProductResponse>>
+     * @see     ProductResponse
+     * @see     ProductType
+     */
+    fun getAvailableProducts(vendorCode: String? = null,
+                             productType: ProductType? = null,
+                             page: Int = KEY_DEFAULT_PRODUCT_PAGE,
+                             offset: Int = KEY_DEFAULT_PRODUCT_OFFSET,
+                             query: String? = null)
+            = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query)
 
     fun validate(voucherCode: String) = voucherUseCase.validate(voucherCode)
 
