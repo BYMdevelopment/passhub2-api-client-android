@@ -23,7 +23,7 @@ class AuthRepositoryImpl(private val context: Context,
         return restClient
             .signIn(SignInRequestBody(login, password))
             .map {
-                if(!it.isNullOrEmpty()) prefsUseCase.putToken(it[0].accessToken)
+                if(!it.isNullOrEmpty()) prefsUseCase.putToken(it[0].access_token)
                 it
             }.applySchedulers()
     }
