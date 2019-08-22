@@ -34,12 +34,12 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
                 query.append("$KEY_VENDOR_CODE $vendorCode")
             }
             if(type != null) {
-                if(vendorCode != null) query.append(" $KEY_AND")
-                query.append(" $KEY_TYPE $type")
+                if(vendorCode != null) query.append(" $KEY_AND ")
+                query.append("$KEY_TYPE $type")
             }
             if(searchedString != null) {
-                if (vendorCode != null || type != null) query.append(" $KEY_AND")
-                query.append(" *$searchedString*")
+                if (vendorCode != null || type != null) query.append(" $KEY_AND ")
+                query.append("*$searchedString*")
             }
 
             query.toString()
