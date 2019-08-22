@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         val sdk = Pass2SDK(this)
         btnTest.setOnClickListener {
-
         }
 
     }
