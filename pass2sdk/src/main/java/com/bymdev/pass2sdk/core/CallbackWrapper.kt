@@ -18,7 +18,7 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>() {
 
     private val LOG_TAG = "CallbackWrapper"
 
-    protected abstract fun onSuccess(t: T)
+    protected abstract fun onSuccess(result: T)
     protected abstract fun onError(error: PassError)
 
     override fun onNext(result: T) {
