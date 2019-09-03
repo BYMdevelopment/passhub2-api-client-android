@@ -70,7 +70,7 @@ class Pass2SDK(private val context: Context) {
 
     fun getAccounts() = dbUseCase.getAccounts()
     fun getCurrentAccount() = dbUseCase.getCurrentAccount()
-    fun updateSelectedAccount(account: AccountEntity) = dbUseCase.updateSelectedAccount(account)
+    fun setAccountAsCurrent(account: AccountEntity) = dbUseCase.setAccountAsCurrent(account)
 
 
 }

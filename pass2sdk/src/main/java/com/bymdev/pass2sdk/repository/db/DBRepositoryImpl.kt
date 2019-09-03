@@ -17,7 +17,7 @@ class DBRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         return database.accountDao().getCurrentAccount()
     }
 
-    override fun updateSelectedAccount(account: AccountEntity): Single<Int> {
+    override fun setAccountAsCurrent(account: AccountEntity): Single<Int> {
         return database.accountDao().update(account)
             .applySchedulers()
             .doOnSuccess { sharedPreferences.saveToken(account.token) }

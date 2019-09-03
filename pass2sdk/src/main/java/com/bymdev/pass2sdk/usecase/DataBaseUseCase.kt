@@ -9,6 +9,6 @@ class DataBaseUseCase(private val dbRepository: DBRepository) {
 
     fun getCurrentAccount() = dbRepository.getCurrentAccount()
 
-    fun updateSelectedAccount(account: AccountEntity) = dbRepository.updateSelectedAccount(account)
+    fun setAccountAsCurrent(account: AccountEntity) = dbRepository.setAccountAsCurrent(account)
 
 }
