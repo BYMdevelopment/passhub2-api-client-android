@@ -1,4 +1,4 @@
-package com.bymdev.pass2sdk.repository
+package com.bymdev.pass2sdk.repository.auth
 
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import io.reactivex.Observable

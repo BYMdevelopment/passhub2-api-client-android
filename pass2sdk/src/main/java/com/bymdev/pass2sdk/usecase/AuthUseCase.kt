@@ -1,6 +1,6 @@
 package com.bymdev.pass2sdk.usecase
 
-import com.bymdev.pass2sdk.repository.AuthRepository
+import com.bymdev.pass2sdk.repository.auth.AuthRepository
 import io.reactivex.Observable
 
 class AuthUseCase(private val authRepository: AuthRepository)  {

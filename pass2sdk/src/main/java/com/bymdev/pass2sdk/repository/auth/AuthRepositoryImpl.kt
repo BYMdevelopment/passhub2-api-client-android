@@ -1,4 +1,4 @@
-package com.bymdev.pass2sdk.repository
+package com.bymdev.pass2sdk.repository.auth
 
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
@@ -7,24 +7,38 @@ import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.request.SignUpRequestBody
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
+import com.bymdev.pass2sdk.room.entity.AccountEntity
 import com.bymdev.pass2sdk.usecase.PrefsUseCase
 import io.reactivex.Observable
 
 class AuthRepositoryImpl(private val context: Context,
-                         private val prefsUseCase: PrefsUseCase) : BaseNetworkRepository(context), AuthRepository {
+                         private val prefsUseCase: PrefsUseCase) : BaseNetworkRepository(context),
+    AuthRepository {
 
     override fun logout(): Observable<Unit> {
         return restClient
             .logout()
+            .map { database.accountDao().delete() }
             .applySchedulers()
     }
 
     override fun signIn(login: String, password: String): Observable<List<AuthResponse>> {
         return restClient
             .signIn(SignInRequestBody(login, password))
-            .map {
-                if(!it.isNullOrEmpty()) prefsUseCase.putToken(it[0].access_token)
-                it
+            .doOnSubscribe { database.accountDao().delete() }
+            .map { items ->
+                if(!items.isNullOrEmpty()) {
+                    items.map {
+                        AccountEntity(it.user_member_rel_id ?: "",
+                            it.access_token ?: "", it.membership?.name, it.default)
+                    }.map {
+                        database.accountDao().insert(it)
+                        if(it.isDefault) {
+                            prefsUseCase.putToken(it.token)
+                        }
+                    }
+                }
+                items
             }.applySchedulers()
     }
 

@@ -1,4 +1,4 @@
-package com.bymdev.pass2sdk.repository
+package com.bymdev.pass2sdk.repository.product
 
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
@@ -7,7 +7,8 @@ import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import io.reactivex.Observable
 
-class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), ProductRepository {
+class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
+    ProductRepository {
 
     private val KEY_VENDOR_CODE = "vendorOwner.code:"
     private val KEY_TYPE = "@type:"
