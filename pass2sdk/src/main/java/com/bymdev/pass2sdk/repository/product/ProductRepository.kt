@@ -1,4 +1,4 @@
-package com.bymdev.pass2sdk.repository
+package com.bymdev.pass2sdk.repository.product
 
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.model.response.ProductResponse

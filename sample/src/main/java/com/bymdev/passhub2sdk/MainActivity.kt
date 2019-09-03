@@ -9,18 +9,20 @@ class MainActivity : AppCompatActivity() {
 
     private val LOG_TAG = javaClass.simpleName
 
-    private lateinit var btnTest: Button
+    private lateinit var btnLogin: Button
+    private lateinit var btnRequest: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnTest = findViewById(R.id.test_button)
+        btnLogin = findViewById(R.id.loginBtn)
+        btnRequest = findViewById(R.id.requestBtn)
 
         val sdk = Pass2SDK(this)
-        btnTest.setOnClickListener {
+        btnLogin.setOnClickListener {
         }
-
+        btnRequest.setOnClickListener {
+        }
     }
-
 }

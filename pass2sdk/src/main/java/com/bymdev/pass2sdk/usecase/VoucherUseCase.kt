@@ -1,6 +1,6 @@
 package com.bymdev.pass2sdk.usecase
 
-import com.bymdev.pass2sdk.repository.VoucherRepository
+import com.bymdev.pass2sdk.repository.voucher.VoucherRepository
 
 class VoucherUseCase(private val voucherRepository: VoucherRepository) {
 
