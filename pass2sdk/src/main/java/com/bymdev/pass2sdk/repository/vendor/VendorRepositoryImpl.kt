@@ -10,7 +10,7 @@ class VendorRepositoryImpl(private val context: Context) : BaseNetworkRepository
 
     override fun getVendorList(): Observable<List<VendorResponse>> {
         return Observable.just("")
-            .map { database.accountDao().getCurrentAccount() }
+            .flatMap { database.accountDao().getCurrentAccount() }
             .flatMap { restClient.getVendorsList(it.memberId) }
             .applySchedulers()
     }
