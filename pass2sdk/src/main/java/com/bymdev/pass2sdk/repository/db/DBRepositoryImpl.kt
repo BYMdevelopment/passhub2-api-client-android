@@ -13,7 +13,7 @@ class DBRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         return database.accountDao().getAccounts().applySchedulers()
     }
 
-    override fun getCurrentAccount(): AccountEntity {
+    override fun getCurrentAccount(): Single<AccountEntity> {
         return database.accountDao().getCurrentAccount()
     }
 

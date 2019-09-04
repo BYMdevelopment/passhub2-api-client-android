@@ -11,7 +11,7 @@ abstract class AccountDao {
     abstract fun getAccounts(): Single<List<AccountEntity>>
 
     @Query("SELECT * FROM account WHERE isDefault = 1")
-    abstract fun getCurrentAccount(): AccountEntity
+    abstract fun getCurrentAccount(): Single<AccountEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(account: AccountEntity)
