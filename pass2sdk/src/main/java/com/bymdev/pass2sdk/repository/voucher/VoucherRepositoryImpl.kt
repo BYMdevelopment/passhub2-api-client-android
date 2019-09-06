@@ -10,9 +10,9 @@ import io.reactivex.Observable
 class VoucherRepositoryImpl(private val context: Context) : BaseNetworkRepository(context),
     VoucherRepository {
 
-    override fun validate(voucherCode: String): Observable<ValidationResponse> {
+    override fun validate(requestBody: ValidationRequestBody): Observable<ValidationResponse> {
         return restClient
-            .validate(voucherCode, ValidationRequestBody(voucherCode))
+            .validate(requestBody.voucherCode, requestBody)
             .applySchedulers()
     }
 

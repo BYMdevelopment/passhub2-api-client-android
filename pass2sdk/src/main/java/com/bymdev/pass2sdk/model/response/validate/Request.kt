@@ -1,11 +1,11 @@
 package com.bymdev.pass2sdk.model.response.validate
 
 data class Request(
-	val customerUid: Any? = null,
-	val orderId: Any? = null,
-	val configuration: Any? = null,
-	val customFields: Any? = null,
-	val sku: Any? = null,
+	val customerUid: String? = null,
+	val orderId: String? = null,
+	val configuration: String? = null,
+	val customFields: String? = null,
+	val sku: String? = null,
 	val voucherCode: String? = null,
-	val voucherProductId: Any? = null
+	val voucherProductId: String? = null
 )
