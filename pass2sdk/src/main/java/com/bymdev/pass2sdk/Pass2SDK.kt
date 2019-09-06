@@ -4,6 +4,7 @@ import android.content.Context
 import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_OFFSET
 import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_PAGE
 import com.bymdev.pass2sdk.enums.ProductType
+import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.repository.auth.AuthRepositoryImpl
 import com.bymdev.pass2sdk.repository.db.DBRepositoryImpl
@@ -53,7 +54,7 @@ class Pass2SDK(private val context: Context) {
                              query: String? = null)
             = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query)
 
-    fun validate(voucherCode: String) = voucherUseCase.validate(voucherCode)
+    fun validate(requestBody: ValidationRequestBody) = voucherUseCase.validate(requestBody)
 
     /**
      * Returns access token if exists.
