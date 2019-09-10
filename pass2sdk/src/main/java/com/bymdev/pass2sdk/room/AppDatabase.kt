@@ -8,7 +8,7 @@ import com.bymdev.pass2sdk.room.dao.AccountDao
 import com.bymdev.pass2sdk.room.entity.AccountEntity
 
 
-@Database(entities = [AccountEntity::class], version = 2)
+@Database(entities = [AccountEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {

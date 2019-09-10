@@ -18,10 +18,17 @@ class DBRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         return database.accountDao().getCurrentAccount()
     }
 
-    override fun setAccountAsCurrent(account: AccountEntity): Single<Int> {
-        return database.accountDao().update(account)
-            .applySchedulers()
-            .doOnSuccess { sharedPreferences.saveToken(account.token) }
+    override fun setAccountAsCurrent(account: AccountEntity): Observable<Unit> {
+        return getCurrentAccount()
+            .map {
+                it.isDefault = false
+                it
+            }
+            .map { database.accountDao().update(it) }
+            .map {
+                account.isDefault = true
+                database.accountDao().update(account)
+            }.map { sharedPreferences.saveToken(account.token) }
     }
 
 }

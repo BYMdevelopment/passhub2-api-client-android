@@ -54,6 +54,16 @@ class Pass2SDK(private val context: Context) {
                              query: String? = null)
             = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query)
 
+    /**
+     * Use this method for validate.
+     * vouchers. For validation
+     * you need to pass voucher code
+     * in request bode model.
+     * <p>
+     * This method returns {@link ValidationResponse}
+     *
+     * @return  Result of validation
+     */
     fun validate(requestBody: ValidationRequestBody) = voucherUseCase.validate(requestBody)
 
     /**
@@ -69,8 +79,34 @@ class Pass2SDK(private val context: Context) {
 
     fun getVendorList() = vendorUseCase.getVendorList()
 
+    /**
+     * Use this method to get
+     * list of user profiles.
+     * <p>
+     * This method returns {@link List<AccountEntity>}
+     *
+     * @return  List profiles
+     */
     fun getAccounts() = dbUseCase.getAccounts()
+
+    /**
+     * Use this method to get
+     * current user profile.
+     * <p>
+     * This method returns {@link AccountEntity}
+     *
+     * @return  Current profile
+     */
     fun getCurrentAccount() = dbUseCase.getCurrentAccount()
+
+    /**
+     * Use this method for set up
+     * new profile as current.
+     * <p>
+     * This method returns {@link Observable<Unit>}
+     *
+     * @return  Unit
+     */
     fun setAccountAsCurrent(account: AccountEntity) = dbUseCase.setAccountAsCurrent(account)
 
 
