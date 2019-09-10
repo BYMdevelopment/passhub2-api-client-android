@@ -18,7 +18,7 @@ abstract class AccountDao {
     abstract fun insert(account: AccountEntity)
 
     @Update
-    abstract fun update(account: AccountEntity): Single<Int>
+    abstract fun update(account: AccountEntity)
 
     @Query("DELETE FROM account")
     abstract fun delete()
