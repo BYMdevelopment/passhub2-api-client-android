@@ -7,5 +7,6 @@ import io.reactivex.Single
 interface DBRepository {
     fun getAccounts(): Single<List<AccountEntity>>
     fun getCurrentAccount(): Observable<AccountEntity>
-    fun setAccountAsCurrent(account: AccountEntity): Observable<Unit>
+    fun getCurrentAccountSingle(): Single<AccountEntity>
+    fun setAccountAsCurrent(account: AccountEntity): Single<Unit>
 }

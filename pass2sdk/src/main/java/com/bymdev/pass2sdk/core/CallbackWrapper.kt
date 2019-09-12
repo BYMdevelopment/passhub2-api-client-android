@@ -1,10 +1,12 @@
 package com.bymdev.pass2sdk.core
 
 import io.reactivex.observers.DisposableObserver
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+
 
 data class PassError(var type: PassErrorType,
                      var code: String? = null,
@@ -13,6 +15,9 @@ data class PassError(var type: PassErrorType,
 enum class PassErrorType {
     HTTP, CONNECTION, TIMEOUT, IO, UNKNOWN
 }
+
+const val KEY_STATUS = "status"
+const val KEY_DETAIL = "detail"
 
 abstract class CallbackWrapper<T> : DisposableObserver<T>() {
 
@@ -36,7 +41,15 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>() {
     }
 
     private fun getHttpError(e: HttpException) : PassError {
-        return PassError(PassErrorType.HTTP, e.code().toString(), e.message())
+        return try {
+            val errorBody: String = e.response()?.errorBody()?.string() ?: ""
+            val json = JSONObject(errorBody)
+            val status = json.getInt(KEY_STATUS)
+            val detail = json.getString(KEY_DETAIL)
+            PassError(PassErrorType.HTTP, status.toString(), detail)
+        } catch (exception : Exception) {
+            PassError(PassErrorType.HTTP, e.code().toString(), e.message())
+        }
     }
 
     override fun onComplete() {

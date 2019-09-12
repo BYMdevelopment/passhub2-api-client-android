@@ -3,6 +3,7 @@ package com.bymdev.pass2sdk.repository.auth
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.applySchedulers
+import com.bymdev.pass2sdk.model.request.ChangePasswordRequestBody
 import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
 import com.bymdev.pass2sdk.model.request.SignInRequestBody
 import com.bymdev.pass2sdk.model.request.SignUpRequestBody
@@ -10,14 +11,16 @@ import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import com.bymdev.pass2sdk.room.entity.AccountEntity
 import com.bymdev.pass2sdk.usecase.PrefsUseCase
 import io.reactivex.Observable
+import io.reactivex.Single
 
 class AuthRepositoryImpl(private val context: Context,
                          private val prefsUseCase: PrefsUseCase) : BaseNetworkRepository(context),
     AuthRepository {
 
-    override fun logout(): Observable<Unit> {
+    override fun logout(): Single<Unit> {
         return restClient
             .logout()
+            .map { prefsUseCase.putToken(null) }
             .map { database.accountDao().delete() }
             .applySchedulers()
     }
@@ -42,15 +45,21 @@ class AuthRepositoryImpl(private val context: Context,
             }.applySchedulers()
     }
 
-    override fun signUp(fName: String, lName: String, email: String, password: String, login: String): Observable<Unit> {
+    override fun signUp(fName: String, lName: String, login: String, email: String, password: String): Observable<Unit> {
         return restClient
-            .signUp(SignUpRequestBody(fName, lName, email, password, login))
+            .signUp(SignUpRequestBody(fName, lName, login, email, password))
             .applySchedulers()
     }
 
     override fun resetPassword(email: String): Observable<Unit> {
         return restClient
             .resetPassword(ResetPasswordRequestBody(email))
+            .applySchedulers()
+    }
+
+    override fun changePassword(password: String): Observable<Unit> {
+        return restClient
+            .changePassword(ChangePasswordRequestBody(password))
             .applySchedulers()
     }
 

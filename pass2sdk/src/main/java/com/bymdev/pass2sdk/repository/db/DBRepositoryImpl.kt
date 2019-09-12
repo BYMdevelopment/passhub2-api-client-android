@@ -18,17 +18,19 @@ class DBRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         return database.accountDao().getCurrentAccount()
     }
 
-    override fun setAccountAsCurrent(account: AccountEntity): Observable<Unit> {
-        return getCurrentAccount()
-            .map {
-                it.isDefault = false
-                it
-            }
-            .map { database.accountDao().update(it) }
-            .map {
-                account.isDefault = true
-                database.accountDao().update(account)
-            }.map { sharedPreferences.saveToken(account.token) }
+    override fun getCurrentAccountSingle(): Single<AccountEntity> {
+        return database.accountDao().getCurrentAccountSingle()
     }
 
+    override fun setAccountAsCurrent(account: AccountEntity): Single<Unit> {
+        return getCurrentAccountSingle()
+            .map {
+                it.isDefault = false
+                database.accountDao().update(it)
+            }.map {
+                account.isDefault = true
+                database.accountDao().update(account)
+                sharedPreferences.saveToken(account.token)
+            }.applySchedulers()
+    }
 }
