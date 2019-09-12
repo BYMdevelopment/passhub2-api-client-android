@@ -26,10 +26,11 @@ class Pass2SDK(private val context: Context) {
     private val vendorUseCase = VendorUseCase(VendorRepositoryImpl(context))
 
     fun signIn(login: String, password: String) = authUseCase.signIn(login, password)
-    fun signUp(fName: String, lName: String, email: String, password: String, login: String)
-            = authUseCase.signUp(fName, lName, email, password, login)
+    fun signUp(fName: String, lName: String, login: String, email: String, password: String)
+            = authUseCase.signUp(fName, lName, login, email, password)
     fun logout() = authUseCase.logout()
     fun resetPassword(email: String) = authUseCase.resetPassword(email)
+    fun changePassword(password: String) = authUseCase.changePassword(password)
 
     /**
      * Returns a list of products that available for validation
