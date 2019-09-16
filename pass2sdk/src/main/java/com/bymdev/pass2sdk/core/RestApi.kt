@@ -31,6 +31,7 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("uaa/api/account/reset-password/init")
     fun resetPassword(@Body resetPasswordRequestBody: ResetPasswordRequestBody): Observable<Unit>
+
     @Headers("Content-Type: application/json")
     @POST("uaa/api/account/change-password")
     fun changePassword(@Body changePasswordRequestBody: ChangePasswordRequestBody): Observable<Unit>
