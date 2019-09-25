@@ -1,7 +1,7 @@
 package com.bymdev.pass2sdk.repository.product
 
 import com.bymdev.pass2sdk.enums.ProductType
-import com.bymdev.pass2sdk.model.request.order.CreateOrderRequestBody
+import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import io.reactivex.Observable
 
@@ -15,6 +15,6 @@ interface ProductRepository  {
         query: String?
     ): Observable<List<ProductResponse>>
 
-    fun createOrder(requestBody: CreateOrderRequestBody): Observable<Any>
+    fun createOrder(requestBody: OrderRequestBody): Observable<Any>
 
 }

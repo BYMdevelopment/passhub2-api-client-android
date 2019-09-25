@@ -5,7 +5,7 @@ import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_OFFSET
 import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_PAGE
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
-import com.bymdev.pass2sdk.model.request.order.CreateOrderRequestBody
+import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.repository.auth.AuthRepositoryImpl
 import com.bymdev.pass2sdk.repository.db.DBRepositoryImpl
@@ -111,7 +111,7 @@ class Pass2SDK(private val context: Context) {
      */
     fun setAccountAsCurrent(account: AccountEntity) = dbUseCase.setAccountAsCurrent(account)
 
-    fun createOrder(requestBody: CreateOrderRequestBody) = productUseCase.createOrder(requestBody)
+    fun createOrder(requestBody: OrderRequestBody) = productUseCase.createOrder(requestBody)
 
 
 }

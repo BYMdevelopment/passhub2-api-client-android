@@ -1,7 +1,7 @@
 package com.bymdev.pass2sdk.core
 
 import com.bymdev.pass2sdk.model.request.*
-import com.bymdev.pass2sdk.model.request.order.CreateOrderRequestBody
+import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.ProductResponse
@@ -56,5 +56,5 @@ interface RestApi {
 
     @Headers("Content-Type: application/json")
     @POST("orders/api/orders")
-    fun createOrder(@Body createOrderRequestBody: CreateOrderRequestBody): Observable<Any>
+    fun createOrder(@Body createOrderRequestBody: OrderRequestBody): Observable<Any>
 }
