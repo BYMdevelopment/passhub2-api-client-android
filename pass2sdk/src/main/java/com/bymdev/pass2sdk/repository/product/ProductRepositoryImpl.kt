@@ -4,6 +4,7 @@ import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.applySchedulers
 import com.bymdev.pass2sdk.enums.ProductType
+import com.bymdev.pass2sdk.model.request.order.CreateOrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import io.reactivex.Observable
 
@@ -13,6 +14,11 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
     private val KEY_VENDOR_CODE = "vendorOwner.code:"
     private val KEY_TYPE = "@type:"
     private val KEY_AND = "AND"
+
+    override fun createOrder(requestBody: CreateOrderRequestBody): Observable<Any> {
+        return restClient.createOrder(requestBody)
+            .applySchedulers()
+    }
 
     override fun getAvailableProducts(
         vendorCode: String?,
