@@ -1,6 +1,7 @@
 package com.bymdev.pass2sdk.core
 
 import com.bymdev.pass2sdk.model.request.*
+import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.ProductResponse
@@ -52,4 +53,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @GET("/uaa/api/account/membership-rel/{id}")
     fun getVendorsList(@Path("id") id: String): Observable<List<VendorResponse>>
+
+    @Headers("Content-Type: application/json")
+    @POST("orders/api/orders")
+    fun createOrder(@Body createOrderRequestBody: OrderRequestBody): Observable<Any>
 }
