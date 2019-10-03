@@ -19,8 +19,9 @@ enum class PassErrorType {
 const val KEY_STATUS = "status"
 const val KEY_DETAIL = "detail"
 const val KEY_HTTP_CODE_UNAUTHORIZED = 401
+const val KEY_HTTP_CODE_FORBIDDEN = 403
 
-open abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
+abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
 
     private val LOG_TAG = "CallbackWrapper"
 
@@ -42,7 +43,7 @@ open abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener
     }
 
     private fun handleHttpError(e: HttpException) {
-        if(e.code() == KEY_HTTP_CODE_UNAUTHORIZED) {
+        if(e.code() == KEY_HTTP_CODE_UNAUTHORIZED || e.code() == KEY_HTTP_CODE_FORBIDDEN) {
             unauthorized()
         } else {
             return try {
