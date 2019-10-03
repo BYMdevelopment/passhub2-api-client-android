@@ -18,8 +18,9 @@ enum class PassErrorType {
 
 const val KEY_STATUS = "status"
 const val KEY_DETAIL = "detail"
+const val KEY_HTTP_CODE_UNAUTHORIZED = 401
 
-abstract class CallbackWrapper<T> : DisposableObserver<T>() {
+open abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
 
     private val LOG_TAG = "CallbackWrapper"
 
@@ -32,7 +33,7 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>() {
 
     override fun onError(e: Throwable) {
         when (e) {
-            is HttpException -> onError(getHttpError(e))
+            is HttpException -> handleHttpError(e)
             is ConnectException -> onError(PassError(PassErrorType.CONNECTION))
             is SocketTimeoutException -> onError(PassError(PassErrorType.TIMEOUT))
             is IOException -> onError(PassError(PassErrorType.IO))
@@ -40,19 +41,23 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>() {
         }
     }
 
-    private fun getHttpError(e: HttpException) : PassError {
-        return try {
-            val errorBody: String = e.response()?.errorBody()?.string() ?: ""
-            val json = JSONObject(errorBody)
-            val status = json.getInt(KEY_STATUS)
-            val detail = json.getString(KEY_DETAIL)
-            PassError(PassErrorType.HTTP, status.toString(), detail)
-        } catch (exception : Exception) {
-            PassError(PassErrorType.HTTP, e.code().toString(), e.message())
+    private fun handleHttpError(e: HttpException) {
+        if(e.code() == KEY_HTTP_CODE_UNAUTHORIZED) {
+            unauthorized()
+        } else {
+            return try {
+                val errorBody: String = e.response()?.errorBody()?.string() ?: ""
+                val json = JSONObject(errorBody)
+                val status = json.getInt(KEY_STATUS)
+                val detail = json.getString(KEY_DETAIL)
+                onError(PassError(PassErrorType.HTTP, status.toString(), detail))
+            } catch (exception : Exception) {
+                onError(PassError(PassErrorType.HTTP, e.code().toString(), e.message()))
+            }
         }
     }
 
-    override fun onComplete() {
+    override fun onComplete() {}
 
-    }
+    override fun unauthorized() {}
 }
