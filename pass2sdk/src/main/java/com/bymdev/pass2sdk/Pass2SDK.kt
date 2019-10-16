@@ -81,6 +81,8 @@ class Pass2SDK(private val context: Context) {
 
     fun getVendorList() = vendorUseCase.getVendorList()
 
+    fun getCurrentVendor() = prefsUseCase.getCurrentVendor()
+
     /**
      * Use this method to get
      * list of user profiles.

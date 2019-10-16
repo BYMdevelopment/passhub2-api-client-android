@@ -13,13 +13,14 @@ import java.util.concurrent.TimeUnit
 class RestAdapter(context: Context) : IRestAdapter {
 
     private val authTokenProvider = AuthTokenProviderImpl(context)
+    private val vendorProvider = VendorProviderImpl(context)
 
     override fun <T> createApi(clazz: Class<T>) = setUpAdapter(clazz)
 
     private fun <T> setUpAdapter(clazz: Class<T>): T {
 
         val client  = OkHttpClient.Builder()
-            .addInterceptor(Pass2ServiceInterceptor(authTokenProvider))
+            .addInterceptor(Pass2ServiceInterceptor(authTokenProvider, vendorProvider))
             .addNetworkInterceptor(StethoInterceptor())
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -34,22 +35,26 @@ class RestAdapter(context: Context) : IRestAdapter {
             .create(clazz)
     }
 
-    private class Pass2ServiceInterceptor(private val authTokenProvider: AuthTokenProvider) : Interceptor {
+    private class Pass2ServiceInterceptor(private val authTokenProvider: AuthTokenProvider,
+                                          private val vendorProvider: VendorProvider) : Interceptor {
         private val AUTH_TOKEN_HEADER_NAME = "Authorization"
         private val BEARER = "Bearer"
+        private val HEADER_VENDOR = "x-passhub-v2-vendor"
 
         override fun intercept(chain: Interceptor.Chain): Response {
             var request = chain.request()
 
             val authToken = authTokenProvider.getToken()
+            val vendorCode = vendorProvider.getCurrentVendor()
             if (authToken != null && authToken.isNotEmpty()) {
-
                 // Request customization: add request headers
                 val original = request
                 val requestBuilder = original.newBuilder()
                         .addHeader(AUTH_TOKEN_HEADER_NAME, "$BEARER $authToken")
                     .method(original.method(), original.body())
-
+                if(vendorCode != null) {
+                    requestBuilder.addHeader(HEADER_VENDOR, vendorCode)
+                }
                 request = requestBuilder.build()
             }
 

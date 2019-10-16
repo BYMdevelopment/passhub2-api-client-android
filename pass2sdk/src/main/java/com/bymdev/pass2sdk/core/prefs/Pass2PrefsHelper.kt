@@ -3,17 +3,25 @@ package com.bymdev.pass2sdk.core.prefs
 import android.content.Context
 import android.content.SharedPreferences
 import com.bymdev.pass2sdk.R
+import com.bymdev.pass2sdk.model.response.auth.Vendor
 import com.google.gson.GsonBuilder
 
 class Pass2PrefsHelper(private val context: Context) {
 
     private val KEY_TOKEN = "${javaClass.`package`}.TOKEN"
+    private val KEY_VENDOR = "${javaClass.`package`}.VENDOR"
 
     fun putToken(token: String?) {
         putStringPref(KEY_TOKEN, token)
     }
 
     fun getToken() = getStringPref(KEY_TOKEN)
+
+    fun putCurrentVendor(vendor: Vendor) {
+        putObject(KEY_VENDOR, vendor)
+    }
+
+    fun getCurrentVendor() = getObject(KEY_VENDOR, Vendor::class.java)
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(
