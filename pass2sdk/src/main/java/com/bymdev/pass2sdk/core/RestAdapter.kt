@@ -27,7 +27,7 @@ class RestAdapter(context: Context) : IRestAdapter {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://66.70.204.185:8000/")
+            .baseUrl("http://144.217.180.187:8000/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
