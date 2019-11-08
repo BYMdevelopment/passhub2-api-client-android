@@ -9,9 +9,10 @@ import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.repository.auth.AuthRepositoryImpl
 import com.bymdev.pass2sdk.repository.db.DBRepositoryImpl
-import com.bymdev.pass2sdk.repository.voucher.VoucherRepositoryImpl
+import com.bymdev.pass2sdk.repository.permission.PermissionsRepositoryImpl
 import com.bymdev.pass2sdk.repository.product.ProductRepositoryImpl
 import com.bymdev.pass2sdk.repository.vendor.VendorRepositoryImpl
+import com.bymdev.pass2sdk.repository.voucher.VoucherRepositoryImpl
 import com.bymdev.pass2sdk.room.entity.AccountEntity
 import com.bymdev.pass2sdk.usecase.*
 
@@ -25,6 +26,7 @@ class Pass2SDK(private val context: Context) {
     private val voucherUseCase = VoucherUseCase(VoucherRepositoryImpl(context))
     private val dbUseCase = DataBaseUseCase(DBRepositoryImpl(context))
     private val vendorUseCase = VendorUseCase(VendorRepositoryImpl(context))
+    private val permissionsUseCase = PermissionsUseCase(PermissionsRepositoryImpl(context))
 
     fun signIn(login: String, password: String) = authUseCase.signIn(login, password)
     fun signUp(fName: String, lName: String, login: String, email: String, password: String)
@@ -115,5 +117,15 @@ class Pass2SDK(private val context: Context) {
 
     fun createOrder(requestBody: OrderRequestBody) = productUseCase.createOrder(requestBody)
 
+    /**
+     * type = GET
+     * Use this method to get
+     * list of current user permissions.
+     * <p>
+     * This method returns {@link List<PermissionResponse>}
+     *
+     * @return  List of permissions
+     */
+    fun getCurrentPermissions() = permissionsUseCase.getCurrentPermissions()
 
 }
