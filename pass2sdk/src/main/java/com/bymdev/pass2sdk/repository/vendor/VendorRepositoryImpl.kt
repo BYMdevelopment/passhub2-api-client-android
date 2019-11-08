@@ -11,10 +11,9 @@ import io.reactivex.Observable
 class VendorRepositoryImpl(private val context: Context) : BaseNetworkRepository(context), VendorRepository {
 
     override fun getVendorList(): Observable<List<VendorResponse>> {
-        return Observable.just("")
-            .flatMap { database.accountDao().getCurrentAccount() }
-            .flatMap { restClient.getVendorsList(it.memberId) }
-            .map(this::saveCurrentVendorIfOnlyOne).applySchedulers()
+        return restClient.getAvailableVendors()
+            .map(this::saveCurrentVendorIfOnlyOne)
+            .applySchedulers()
     }
 
     private fun saveCurrentVendorIfOnlyOne(vendors: List<VendorResponse>): List<VendorResponse> {
