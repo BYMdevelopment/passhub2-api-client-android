@@ -43,7 +43,7 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
     }
 
     private fun handleHttpError(e: HttpException) {
-        if(e.code() == KEY_HTTP_CODE_UNAUTHORIZED || e.code() == KEY_HTTP_CODE_FORBIDDEN) {
+        if(e.code() == KEY_HTTP_CODE_UNAUTHORIZED) {
             unauthorized()
         } else {
             return try {
