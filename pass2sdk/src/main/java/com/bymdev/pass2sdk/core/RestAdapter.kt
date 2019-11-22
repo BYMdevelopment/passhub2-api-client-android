@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RestAdapter(context: Context) : IRestAdapter {
-
     private val authTokenProvider = AuthTokenProviderImpl(context)
     private val vendorProvider = VendorProviderImpl(context)
 
@@ -37,8 +36,6 @@ class RestAdapter(context: Context) : IRestAdapter {
 
     private class Pass2ServiceInterceptor(private val authTokenProvider: AuthTokenProvider,
                                           private val vendorProvider: VendorProvider) : Interceptor {
-        private val AUTH_TOKEN_HEADER_NAME = "Authorization"
-        private val BEARER = "Bearer"
         private val HEADER_VENDOR = "x-passhub-v2-vendor"
 
         override fun intercept(chain: Interceptor.Chain): Response {
@@ -50,10 +47,11 @@ class RestAdapter(context: Context) : IRestAdapter {
                 // Request customization: add request headers
                 val original = request
                 val requestBuilder = original.newBuilder()
-                        .addHeader(AUTH_TOKEN_HEADER_NAME, "$BEARER $authToken")
-                    .method(original.method(), original.body())
+                if(original.headers().get(AUTH_TOKEN_HEADER_NAME) == null)
+                    requestBuilder.header(AUTH_TOKEN_HEADER_NAME, "$BEARER $authToken")
+                requestBuilder.method(original.method(), original.body())
                 if(vendorCode != null) {
-                    requestBuilder.addHeader(HEADER_VENDOR, vendorCode)
+                    requestBuilder.header(HEADER_VENDOR, vendorCode)
                 }
                 request = requestBuilder.build()
             }

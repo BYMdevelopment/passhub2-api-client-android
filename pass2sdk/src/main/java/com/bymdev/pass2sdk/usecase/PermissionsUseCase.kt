@@ -1,8 +1,9 @@
 package com.bymdev.pass2sdk.usecase
 
 import com.bymdev.pass2sdk.repository.permission.PermissionsRepository
+import com.bymdev.pass2sdk.room.entity.AccountEntity
 
 class PermissionsUseCase(private val repository: PermissionsRepository) {
 
-    fun getCurrentPermissions() = repository.getCurrentPermissions()
+    fun getPermissions(account: AccountEntity?) = repository.getPermissions(account)
 }

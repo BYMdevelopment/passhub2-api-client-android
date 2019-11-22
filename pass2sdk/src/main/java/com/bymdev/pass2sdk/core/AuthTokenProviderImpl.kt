@@ -5,6 +5,8 @@ import com.bymdev.pass2sdk.core.prefs.Pass2PrefsHelper
 
 class AuthTokenProviderImpl(private val context: Context) : AuthTokenProvider {
 
-    override fun getToken() = Pass2PrefsHelper(context).getToken()
+    override fun getToken() : String? {
+        return Pass2PrefsHelper(context).getToken()
+    }
 
 }

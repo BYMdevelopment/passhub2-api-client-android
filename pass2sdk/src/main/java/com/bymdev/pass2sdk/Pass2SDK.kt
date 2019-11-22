@@ -120,12 +120,14 @@ class Pass2SDK(private val context: Context) {
     /**
      * type = GET
      * Use this method to get
-     * list of current user permissions.
+     * list of current user permissions,
+     * or pass AccountEntity to get
+     * list of permissions for another account
      * <p>
      * This method returns {@link List<PermissionResponse>}
      *
      * @return  List of permissions
      */
-    fun getCurrentPermissions() = permissionsUseCase.getCurrentPermissions()
+    fun getPermissions(account: AccountEntity? = null) = permissionsUseCase.getPermissions(account)
 
 }
