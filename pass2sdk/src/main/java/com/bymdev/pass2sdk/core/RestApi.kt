@@ -66,5 +66,5 @@ interface RestApi {
 
     @Headers("Content-Type: application/json")
     @GET("uaa/api/v1/permissions/current")
-    fun getCurrentPermissions(): Observable<List<PermissionResponse>>
+    fun getPermissions(@Header("$AUTH_TOKEN_HEADER_NAME") token: String?): Observable<List<PermissionResponse>>
 }
