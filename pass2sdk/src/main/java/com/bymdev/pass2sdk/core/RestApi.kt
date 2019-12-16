@@ -1,5 +1,6 @@
 package com.bymdev.pass2sdk.core
 
+import com.bymdev.pass2sdk.model.CategoryResponse
 import com.bymdev.pass2sdk.model.request.*
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.AccountResponse
@@ -67,4 +68,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @GET("uaa/api/v1/permissions/current")
     fun getPermissions(@Header("$AUTH_TOKEN_HEADER_NAME") token: String?): Observable<List<PermissionResponse>>
+
+    @Headers("Content-Type: application/json")
+    @GET("products/api/v1/categories")
+    fun getCategories(): Observable<List<CategoryResponse>>
 }
