@@ -15,7 +15,7 @@ interface ProductRepository  {
         page: Int,
         offset: Int,
         query: String?,
-        sort: SortBy?,
+        sortBy: SortBy?,
         sortOrder: SortOrder?
     ): Observable<List<ProductResponse>>
 

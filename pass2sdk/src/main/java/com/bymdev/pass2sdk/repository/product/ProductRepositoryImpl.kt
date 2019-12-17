@@ -28,15 +28,15 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         page: Int,
         offset: Int,
         query: String?,
-        sort: SortBy?,
+        sortBy: SortBy?,
         sortOrder: SortOrder?
     ): Observable<List<ProductResponse>> {
-        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset, getSortOrder(sort, sortOrder))
+        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset, getSortOrder(sortBy, sortOrder))
             .applySchedulers()
     }
 
-    private fun getSortOrder(sort: SortBy?, sortOrder: SortOrder?): String {
-        return "$sort,$sortOrder"
+    private fun getSortOrder(sortBy: SortBy?, sortOrder: SortOrder?): String {
+        return "$sortBy,$sortOrder"
     }
 
     private fun getQueryForAvailableProductsRequest(vendorCode: String?, type: ProductType?, searchedString: String?): String? {

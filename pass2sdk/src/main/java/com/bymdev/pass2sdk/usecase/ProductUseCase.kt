@@ -9,8 +9,8 @@ import com.bymdev.pass2sdk.repository.product.ProductRepository
 class ProductUseCase(private val productRepository: ProductRepository) {
 
     fun getAvailableProducts(vendorCode: String?, productType: ProductType?, page: Int, offset: Int,
-                             query: String?, sort: SortBy?, sortOrder: SortOrder?)
-            = productRepository.getAvailableProducts(vendorCode, productType, page, offset, query, sort, sortOrder)
+                             query: String?, sortBy: SortBy?, sortOrder: SortOrder?)
+            = productRepository.getAvailableProducts(vendorCode, productType, page, offset, query, sortBy, sortOrder)
 
     fun createOrder(requestBody: OrderRequestBody) = productRepository.createOrder(requestBody)
 
