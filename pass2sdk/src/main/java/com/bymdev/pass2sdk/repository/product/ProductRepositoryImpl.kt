@@ -4,6 +4,7 @@ import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.applySchedulers
 import com.bymdev.pass2sdk.enums.ProductType
+import com.bymdev.pass2sdk.enums.SortType
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import io.reactivex.Observable
@@ -25,9 +26,10 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         productType: ProductType?,
         page: Int,
         offset: Int,
-        query: String?
+        query: String?,
+        sort: SortType?
     ): Observable<List<ProductResponse>> {
-        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset)
+        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset, sort?.type)
             .applySchedulers()
     }
 
