@@ -3,7 +3,9 @@ package com.bymdev.pass2sdk.repository.product
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.applySchedulers
+import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.enums.ProductType
+import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import io.reactivex.Observable
@@ -25,10 +27,16 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         productType: ProductType?,
         page: Int,
         offset: Int,
-        query: String?
+        query: String?,
+        sortBy: SortBy?,
+        sortOrder: SortOrder?
     ): Observable<List<ProductResponse>> {
-        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset)
+        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset, getSortOrder(sortBy, sortOrder))
             .applySchedulers()
+    }
+
+    private fun getSortOrder(sortBy: SortBy?, sortOrder: SortOrder?): String {
+        return "$sortBy,$sortOrder"
     }
 
     private fun getQueryForAvailableProductsRequest(vendorCode: String?, type: ProductType?, searchedString: String?): String? {

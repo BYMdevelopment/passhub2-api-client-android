@@ -44,7 +44,8 @@ interface RestApi {
     fun getAvailableProducts(
         @Query("query") query: String?,
         @Query("page") page: Int,
-        @Query("size") size: Int
+        @Query("size") size: Int,
+        @Query("sort") sort: String?
     ): Observable<List<ProductResponse>>
 
     @Headers("Content-Type: application/json")
