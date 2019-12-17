@@ -3,9 +3,9 @@ package com.bymdev.pass2sdk
 import android.content.Context
 import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_OFFSET
 import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_PAGE
-import com.bymdev.pass2sdk.enums.AscType
+import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.enums.ProductType
-import com.bymdev.pass2sdk.enums.SortType
+import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
@@ -60,9 +60,9 @@ class Pass2SDK(private val context: Context) {
                              page: Int = KEY_DEFAULT_PRODUCT_PAGE,
                              offset: Int = KEY_DEFAULT_PRODUCT_OFFSET,
                              query: String? = null,
-                             sort: SortType?,
-                             ascType: AscType?)
-            = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query, sort, ascType)
+                             sort: SortBy?,
+                             sortOrder: SortOrder?)
+            = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query, sort, sortOrder)
 
     /**
      * Use this method for validate.
