@@ -1,5 +1,6 @@
 package com.bymdev.pass2sdk.repository.product
 
+import com.bymdev.pass2sdk.enums.AscType
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortType
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
@@ -14,7 +15,8 @@ interface ProductRepository  {
         page: Int,
         offset: Int,
         query: String?,
-        sort: SortType?
+        sort: SortType?,
+        ascType: AscType?
     ): Observable<List<ProductResponse>>
 
     fun createOrder(requestBody: OrderRequestBody): Observable<Any>

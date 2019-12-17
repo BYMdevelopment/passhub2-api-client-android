@@ -3,6 +3,7 @@ package com.bymdev.pass2sdk.repository.product
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.applySchedulers
+import com.bymdev.pass2sdk.enums.AscType
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortType
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
@@ -27,10 +28,15 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         page: Int,
         offset: Int,
         query: String?,
-        sort: SortType?
+        sort: SortType?,
+        ascType: AscType?
     ): Observable<List<ProductResponse>> {
-        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset, sort?.type)
+        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query), page, offset, getSortType(sort, ascType))
             .applySchedulers()
+    }
+
+    private fun getSortType(sort: SortType?, ascType: AscType?): String {
+        return "$sort,$ascType"
     }
 
     private fun getQueryForAvailableProductsRequest(vendorCode: String?, type: ProductType?, searchedString: String?): String? {
