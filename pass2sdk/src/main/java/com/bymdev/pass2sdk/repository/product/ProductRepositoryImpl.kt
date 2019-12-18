@@ -36,7 +36,7 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
     }
 
     private fun getSortOrder(sortBy: SortBy?, sortOrder: SortOrder?): String {
-        return "$sortBy,$sortOrder"
+        return "${sortBy?.type},${sortOrder?.type}"
     }
 
     private fun getQueryForAvailableProductsRequest(vendorCode: String?, type: ProductType?, searchedString: String?): String? {
