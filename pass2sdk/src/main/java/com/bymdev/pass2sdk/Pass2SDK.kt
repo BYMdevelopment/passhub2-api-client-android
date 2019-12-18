@@ -60,7 +60,7 @@ class Pass2SDK(private val context: Context) {
                              page: Int = KEY_DEFAULT_PRODUCT_PAGE,
                              offset: Int = KEY_DEFAULT_PRODUCT_OFFSET,
                              query: String? = null,
-                             sort: SortBy?,
+                             sortBy: SortBy?,
                              sortOrder: SortOrder?)
             = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query, sortBy, sortOrder)
 
