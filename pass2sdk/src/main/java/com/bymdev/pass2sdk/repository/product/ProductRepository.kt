@@ -16,7 +16,8 @@ interface ProductRepository  {
         offset: Int,
         query: String?,
         sortBy: SortBy?,
-        sortOrder: SortOrder?
+        sortOrder: SortOrder?,
+        categories: List<String>?
     ): Observable<List<ProductResponse>>
 
     fun createOrder(requestBody: OrderRequestBody): Observable<Any>

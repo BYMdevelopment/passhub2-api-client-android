@@ -61,8 +61,9 @@ class Pass2SDK(private val context: Context) {
                              offset: Int = KEY_DEFAULT_PRODUCT_OFFSET,
                              query: String? = null,
                              sortBy: SortBy?,
-                             sortOrder: SortOrder?)
-            = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query, sortBy, sortOrder)
+                             sortOrder: SortOrder?,
+                             categories: List<String>?)
+            = productUseCase.getAvailableProducts(vendorCode, productType, page, offset, query, sortBy, sortOrder, categories)
 
     /**
      * Use this method for validate.
