@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bymdev.pass2sdk.Pass2SDK
 
 class MainActivity : AppCompatActivity() {
-
     private val LOG_TAG = javaClass.simpleName
 
     private lateinit var btnLogin: Button

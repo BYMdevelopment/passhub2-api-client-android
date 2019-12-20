@@ -18,6 +18,7 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
     private val KEY_AND = "AND"
     private val KEY_OR = "OR"
     private val KEY_CATEGORIES = "categories.name:"
+    private val KEY_WITHOUT_CATEGORY = "(!_exists_:categories)"
 
     override fun createOrder(requestBody: OrderRequestBody): Observable<Any> {
         return restClient.createOrder(requestBody)
@@ -32,9 +33,11 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         query: String?,
         sortBy: SortBy?,
         sortOrder: SortOrder?,
-        categories: List<String>?
+        categories: List<String>?,
+        withOutCategory: Boolean?
     ): Observable<List<ProductResponse>> {
-        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query, categories), page, offset, getSortOrder(sortBy, sortOrder))
+        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query, categories, withOutCategory),
+            page, offset, getSortOrder(sortBy, sortOrder))
             .applySchedulers()
     }
 
@@ -42,9 +45,9 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         return "${sortBy?.type},${sortOrder?.type}"
     }
 
-    private fun getQueryForAvailableProductsRequest(vendorCode: String?, type: ProductType?, searchedString: String?, categories: List<String>?): String? {
+    private fun getQueryForAvailableProductsRequest(vendorCode: String?, type: ProductType?, searchedString: String?,
+                                                    categories: List<String>?, withoutCategory: Boolean? = false): String? {
         val query = StringBuilder()
-
         return if(vendorCode == null && type == null && searchedString == null && categories == null) {
             null
         } else {
@@ -59,21 +62,42 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
                 if (vendorCode != null || type != null) query.append(" $KEY_AND ")
                 query.append("*$searchedString*")
             }
-            if(categories.isNullOrEmpty().not()) {
+
+            if(categories != null || withoutCategory == true) {
                 if(vendorCode != null || type != null || searchedString != null) {
                     query.append(" $KEY_AND ")
                 }
-                val categoriesBuilder = StringBuilder()
-                categories?.forEach {
-                    if(categoriesBuilder.isEmpty())
-                        categoriesBuilder.append("'$it'")
-                    else
-                        categoriesBuilder.append(" $KEY_OR '$it'")
-                }
-                query.append("$KEY_CATEGORIES($categoriesBuilder)")
+                query.append(addCategoryFilter(categories, withoutCategory ?: false).toString())
             }
 
             query.toString()
         }
+    }
+
+    private fun addCategoryFilter(categories: List<String>?, withoutCategory: Boolean): StringBuilder {
+        val queryBuilder = StringBuilder()
+        val hasCategories = categories.isNullOrEmpty().not()
+        queryBuilder.append("(")
+
+        if(hasCategories) {
+            val categoriesBuilder = StringBuilder()
+            categories?.forEach {
+                if(categoriesBuilder.isEmpty())
+                    categoriesBuilder.append("'$it'")
+                else
+                    categoriesBuilder.append(" $KEY_OR '$it'")
+            }
+            queryBuilder.append("$KEY_CATEGORIES($categoriesBuilder) ")
+        }
+
+        if(withoutCategory) {
+            if(hasCategories)
+                queryBuilder.append(KEY_OR)
+            queryBuilder.append(" $KEY_WITHOUT_CATEGORY")
+        }
+
+        queryBuilder.append(")")
+
+        return queryBuilder
     }
 }
