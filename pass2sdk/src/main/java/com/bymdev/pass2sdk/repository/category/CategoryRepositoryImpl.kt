@@ -8,8 +8,9 @@ import io.reactivex.Observable
 
 class CategoryRepositoryImpl(val context: Context) : BaseNetworkRepository(context), CategoryRepository {
 
-    override fun getCategories(): Observable<List<CategoryResponse>> {
-        return restClient.getCategories()
+    override fun getCategories(page: Int, size: Int, sortOrder: String): Observable<List<CategoryResponse>> {
+        val sortQuery = "id,$sortOrder"
+        return restClient.getCategories(page, size, sortQuery)
             .applySchedulers()
     }
 

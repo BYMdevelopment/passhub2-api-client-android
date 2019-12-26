@@ -1,8 +1,8 @@
 package com.bymdev.pass2sdk
 
 import android.content.Context
-import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_OFFSET
-import com.bymdev.pass2sdk.base.KEY_DEFAULT_PRODUCT_PAGE
+import com.bymdev.pass2sdk.base.DEFAULT_OFFSET
+import com.bymdev.pass2sdk.base.DEFAULT_PAGE_NUMBER
 import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
@@ -57,8 +57,8 @@ class Pass2SDK(private val context: Context) {
      */
     fun getAvailableProducts(vendorCode: String? = null,
                              productType: ProductType? = null,
-                             page: Int = KEY_DEFAULT_PRODUCT_PAGE,
-                             offset: Int = KEY_DEFAULT_PRODUCT_OFFSET,
+                             page: Int = DEFAULT_PAGE_NUMBER,
+                             offset: Int = DEFAULT_OFFSET,
                              query: String? = null,
                              sortBy: SortBy?,
                              sortOrder: SortOrder?,
@@ -147,6 +147,8 @@ class Pass2SDK(private val context: Context) {
      *
      * @return  List of categories
      */
-    fun getCategories() = categoryUseCase.getCategories()
+    fun getCategories(page: Int = DEFAULT_PAGE_NUMBER,
+                      size: Int = DEFAULT_OFFSET,
+                      sortOrder: String = SortOrder.ASC.type) = categoryUseCase.getCategories(page, size, sortOrder)
 
 }
