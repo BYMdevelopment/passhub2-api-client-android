@@ -72,5 +72,7 @@ interface RestApi {
 
     @Headers("Content-Type: application/json")
     @GET("products/api/v1/categories")
-    fun getCategories(): Observable<List<CategoryResponse>>
+    fun getCategories(@Query("page") page: Int,
+                      @Query("size") size: Int,
+                      @Query("sort") sort: String): Observable<List<CategoryResponse>>
 }

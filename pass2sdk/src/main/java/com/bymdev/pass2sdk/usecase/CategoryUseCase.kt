@@ -4,6 +4,6 @@ import com.bymdev.pass2sdk.repository.category.CategoryRepository
 
 class CategoryUseCase(private val repository: CategoryRepository) {
 
-    fun getCategories() = repository.getCategories()
+    fun getCategories(page: Int, size: Int, sortOrder: String) = repository.getCategories(page, size, sortOrder)
 
 }
