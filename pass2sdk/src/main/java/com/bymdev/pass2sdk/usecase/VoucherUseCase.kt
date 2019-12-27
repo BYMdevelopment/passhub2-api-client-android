@@ -7,4 +7,6 @@ class VoucherUseCase(private val voucherRepository: VoucherRepository) {
 
     fun validate(requestBody: ValidationRequestBody) = voucherRepository.validate(requestBody)
 
+    fun convert(code: String, newAlias: String, oldAlias: String) = voucherRepository.convert(code, newAlias, oldAlias)
+
 }

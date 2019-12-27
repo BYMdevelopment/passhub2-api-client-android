@@ -8,6 +8,7 @@ import com.bymdev.pass2sdk.model.response.PermissionResponse
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
+import com.bymdev.pass2sdk.model.response.convert.ConvertResponse
 import com.bymdev.pass2sdk.model.response.vendor.VendorResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -52,6 +53,12 @@ interface RestApi {
     @POST("vouchers/api/v1/vouchers/{voucherCode}/validate")
     fun validate(@Path("voucherCode") voucherCode: String,
                  @Body validationRequestBody: ValidationRequestBody): Observable<ValidationResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("vouchers/api/v1/vouchers/convert")
+    fun convert(@Query("code") code: String,
+                @Query("newAlias") newAlias: String,
+                @Query("oldAlias") oldAlias: String): Observable<ConvertResponse>
 
     @Deprecated("Use getAvailableVendors instead")
     @Headers("Content-Type: application/json")
