@@ -7,5 +7,5 @@ import io.reactivex.Observable
 
 interface VoucherRepository {
     fun validate(requestBody: ValidationRequestBody): Observable<ValidationResponse>
-    fun convert(code: String, newAlias: String, oldAlias: String): Observable<ConvertResponse>
+    fun convert(code: String, oldAlias: String, newAlias: String): Observable<ConvertResponse>
 }

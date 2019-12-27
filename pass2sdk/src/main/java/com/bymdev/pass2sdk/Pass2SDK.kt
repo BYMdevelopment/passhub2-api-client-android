@@ -81,13 +81,13 @@ class Pass2SDK(private val context: Context) {
     /**
      * Use this method to convert
      * one voucher into another. For converting
-     * you need to pass "code", "newAlias" and "oldAlias".
+     * you need to pass "code", "oldAlias" and "newAlias".
      * <p>
      * This method returns {@link ConvertResponse}
      *
      * @return  Result of converting vouchers
      */
-    fun voucherConvert(code: String, newAlias: String, oldAlias: String) = voucherUseCase.convert(code, newAlias, oldAlias)
+    fun voucherConvert(code: String, oldAlias: String, newAlias: String) = voucherUseCase.convert(code, oldAlias, newAlias)
 
     /**
      * Returns access token if exists.

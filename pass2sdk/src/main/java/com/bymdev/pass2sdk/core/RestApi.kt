@@ -57,8 +57,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("vouchers/api/v1/vouchers/convert")
     fun convert(@Query("code") code: String,
-                @Query("newAlias") newAlias: String,
-                @Query("oldAlias") oldAlias: String): Observable<ConvertResponse>
+                @Query("oldAlias") oldAlias: String,
+                @Query("newAlias") newAlias: String): Observable<ConvertResponse>
 
     @Deprecated("Use getAvailableVendors instead")
     @Headers("Content-Type: application/json")

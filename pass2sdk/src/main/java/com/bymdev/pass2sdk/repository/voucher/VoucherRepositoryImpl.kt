@@ -17,9 +17,9 @@ class VoucherRepositoryImpl(private val context: Context) : BaseNetworkRepositor
             .applySchedulers()
     }
 
-    override fun convert(code: String, newAlias: String, oldAlias: String): Observable<ConvertResponse> {
+    override fun convert(code: String, oldAlias: String, newAlias: String): Observable<ConvertResponse> {
         return restClient
-            .convert(code, newAlias, oldAlias)
+            .convert(code, oldAlias, newAlias)
             .applySchedulers()
     }
 
