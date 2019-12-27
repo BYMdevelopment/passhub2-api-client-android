@@ -38,7 +38,7 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
             is ConnectException -> onError(PassError(PassErrorType.CONNECTION))
             is SocketTimeoutException -> onError(PassError(PassErrorType.TIMEOUT))
             is IOException -> onError(PassError(PassErrorType.IO))
-            else -> onError(PassError(PassErrorType.UNKNOWN))
+            else -> onError(PassError(PassErrorType.UNKNOWN, e.message))
         }
     }
 
