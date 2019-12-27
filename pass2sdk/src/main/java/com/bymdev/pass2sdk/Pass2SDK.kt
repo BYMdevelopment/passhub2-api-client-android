@@ -70,13 +70,24 @@ class Pass2SDK(private val context: Context) {
      * Use this method for validate.
      * vouchers. For validation
      * you need to pass voucher code
-     * in request bode model.
+     * in request body model.
      * <p>
      * This method returns {@link ValidationResponse}
      *
      * @return  Result of validation
      */
     fun validate(requestBody: ValidationRequestBody) = voucherUseCase.validate(requestBody)
+
+    /**
+     * Use this method to convert
+     * one voucher into another. For converting
+     * you need to pass "code", "oldAlias" and "newAlias".
+     * <p>
+     * This method returns {@link ConvertResponse}
+     *
+     * @return  Result of converting vouchers
+     */
+    fun voucherConvert(code: String, oldAlias: String, newAlias: String) = voucherUseCase.convert(code, oldAlias, newAlias)
 
     /**
      * Returns access token if exists.
