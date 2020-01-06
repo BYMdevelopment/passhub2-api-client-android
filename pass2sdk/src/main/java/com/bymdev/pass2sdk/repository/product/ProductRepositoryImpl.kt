@@ -8,6 +8,7 @@ import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
+import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
 import io.reactivex.Observable
 
 class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
@@ -20,7 +21,7 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
     private val KEY_CATEGORIES = "categories.name:"
     private val KEY_WITHOUT_CATEGORY = "(!_exists_:categories)"
 
-    override fun createOrder(requestBody: OrderRequestBody): Observable<Any> {
+    override fun createOrder(requestBody: OrderRequestBody): Observable<OrderCreateResponse> {
         return restClient.createOrder(requestBody)
             .applySchedulers()
     }
