@@ -5,6 +5,7 @@ import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
+import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
 import io.reactivex.Observable
 
 interface ProductRepository  {
@@ -21,6 +22,6 @@ interface ProductRepository  {
         withoutCategory: Boolean? = false
     ): Observable<List<ProductResponse>>
 
-    fun createOrder(requestBody: OrderRequestBody): Observable<Any>
+    fun createOrder(requestBody: OrderRequestBody): Observable<OrderCreateResponse>
 
 }

@@ -9,6 +9,7 @@ import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import com.bymdev.pass2sdk.model.response.convert.ConvertResponse
+import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
 import com.bymdev.pass2sdk.model.response.vendor.VendorResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -71,7 +72,7 @@ interface RestApi {
 
     @Headers("Content-Type: application/json")
     @POST("orders/api/v1/orders/sync")
-    fun createOrder(@Body createOrderRequestBody: OrderRequestBody): Observable<Any>
+    fun createOrder(@Body createOrderRequestBody: OrderRequestBody): Observable<OrderCreateResponse>
 
     @Headers("Content-Type: application/json")
     @GET("uaa/api/v1/permissions/current")
