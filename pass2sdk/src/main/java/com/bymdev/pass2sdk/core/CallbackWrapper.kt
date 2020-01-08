@@ -44,12 +44,12 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
     }
 
     private fun handleHttpError(e: HttpException) {
-        val body = e.response()?.errorBody()?.string()
         if(e.code() == KEY_HTTP_CODE_UNAUTHORIZED) {
             unauthorized()
         } else {
             return try {
-                val json = JSONObject(body ?: "")
+                val errorBody = e.response()?.errorBody()?.string()
+                val json = JSONObject(errorBody ?: "")
                 val status = json.getInt(KEY_STATUS)
                 val detail = json.getString(KEY_MESSAGE)
                 onError(PassError(PassErrorType.HTTP, status.toString(), detail))
