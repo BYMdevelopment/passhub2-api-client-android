@@ -18,6 +18,7 @@ enum class PassErrorType {
 
 const val KEY_STATUS = "status"
 const val KEY_DETAIL = "detail"
+const val KEY_MESSAGE = "message"
 const val KEY_HTTP_CODE_UNAUTHORIZED = 401
 const val KEY_HTTP_CODE_FORBIDDEN = 403
 
@@ -47,10 +48,10 @@ abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
             unauthorized()
         } else {
             return try {
-                val errorBody: String = e.response()?.errorBody()?.string() ?: ""
-                val json = JSONObject(errorBody)
+                val errorBody = e.response()?.errorBody()?.string()
+                val json = JSONObject(errorBody ?: "")
                 val status = json.getInt(KEY_STATUS)
-                val detail = json.getString(KEY_DETAIL)
+                val detail = json.getString(KEY_MESSAGE)
                 onError(PassError(PassErrorType.HTTP, status.toString(), detail))
             } catch (exception : Exception) {
                 onError(PassError(PassErrorType.HTTP, e.code().toString(), e.message()))
