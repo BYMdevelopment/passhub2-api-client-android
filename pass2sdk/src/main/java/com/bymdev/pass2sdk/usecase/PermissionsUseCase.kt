@@ -5,5 +5,5 @@ import com.bymdev.pass2sdk.room.entity.AccountEntity
 
 class PermissionsUseCase(private val repository: PermissionsRepository) {
 
-    fun getPermissions(account: AccountEntity?) = repository.getPermissions(account)
+    fun getPermissions(account: AccountEntity?, msCode: String?) = repository.getPermissions(account, msCode)
 }
