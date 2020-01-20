@@ -10,13 +10,13 @@ import io.reactivex.Observable
 
 class PermissionsRepositoryImpl(private val context: Context) : BaseNetworkRepository(context), PermissionsRepository {
 
-    override fun getPermissions(account: AccountEntity?): Observable<List<PermissionResponse>> {
+    override fun getPermissions(account: AccountEntity?, msCode: String?): Observable<List<PermissionResponse>> {
         var token: String? = null
         if(account?.token != null) {
             token = "$BEARER ${account.token}"
         }
         return restClient
-            .getPermissions(token)
+            .getPermissions(token, msCode)
             .applySchedulers()
     }
 

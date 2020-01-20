@@ -5,5 +5,5 @@ import com.bymdev.pass2sdk.room.entity.AccountEntity
 import io.reactivex.Observable
 
 interface PermissionsRepository {
-    fun getPermissions(account: AccountEntity?): Observable<List<PermissionResponse>>
+    fun getPermissions(account: AccountEntity?, msCode: String?): Observable<List<PermissionResponse>>
 }
