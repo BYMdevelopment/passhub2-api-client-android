@@ -8,5 +8,8 @@ data class ValidationResponse(
 	val trxId: String? = null,
 	val status: String? = null,
 	val errorCode: String? = null,
-	val customers: List<Customer>? = null
+	val product: Product? = null,
+	val products: List<Product>? = null,
+	val customers: List<Customer>? = null,
+	val orders: List<OrderResponse>? = null
 )

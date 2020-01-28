@@ -8,5 +8,6 @@ data class Product(
 	val name: String? = null,
 	val id: Int? = null,
 	val sku: String? = null,
-	val optionName: String? = null
+	val optionName: String? = null,
+	val availabilities: List<ProductAvailability>?
 )
