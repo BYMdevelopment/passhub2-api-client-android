@@ -2,7 +2,7 @@ package com.bymdev.pass2sdk.repository.vendor
 
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
-import com.bymdev.pass2sdk.base.applySchedulers
+import com.bymdev.pass2sdk.base.addTokenHandler
 import com.bymdev.pass2sdk.model.response.auth.Vendor
 import com.bymdev.pass2sdk.model.response.vendor.VendorResponse
 import com.bymdev.pass2sdk.repository.prefs.SharedPreferenceRepositoryImpl
@@ -13,12 +13,13 @@ class VendorRepositoryImpl(private val context: Context) : BaseNetworkRepository
     override fun getVendorList(): Observable<List<VendorResponse>> {
         return restClient.getAvailableVendors()
             .map(this::saveCurrentVendorIfOnlyOne)
-            .applySchedulers()
+            .addTokenHandler(refreshTokenHandler)
     }
 
     private fun saveCurrentVendorIfOnlyOne(vendors: List<VendorResponse>): List<VendorResponse> {
         if(vendors.size == 1) {
-            SharedPreferenceRepositoryImpl(context).saveVendor(Vendor(vendors[0].code, vendors[0].name))
+            val currentVendor = vendors.first()
+            SharedPreferenceRepositoryImpl(context).saveVendor(Vendor(currentVendor.code, currentVendor.name))
         }
         return vendors
     }

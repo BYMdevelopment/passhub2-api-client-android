@@ -1,5 +1,6 @@
 package com.bymdev.pass2sdk.core
 
+import com.bymdev.pass2sdk.base.KEY_HTTP_CODE_UNAUTHORIZED
 import io.reactivex.observers.DisposableObserver
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -19,8 +20,6 @@ enum class PassErrorType {
 const val KEY_STATUS = "status"
 const val KEY_DETAIL = "detail"
 const val KEY_MESSAGE = "message"
-const val KEY_HTTP_CODE_UNAUTHORIZED = 401
-const val KEY_HTTP_CODE_FORBIDDEN = 403
 
 abstract class CallbackWrapper<T> : DisposableObserver<T>(), IErrorListener {
 

@@ -1,5 +1,7 @@
 package com.bymdev.pass2sdk.core
 
+import com.bymdev.pass2sdk.base.AUTH_TOKEN_HEADER_NAME
+import com.bymdev.pass2sdk.base.REFRESH_TOKEN_HEADER_NAME
 import com.bymdev.pass2sdk.model.CategoryResponse
 import com.bymdev.pass2sdk.model.request.*
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
@@ -7,6 +9,7 @@ import com.bymdev.pass2sdk.model.response.AccountResponse
 import com.bymdev.pass2sdk.model.response.PermissionResponse
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.ProductResponse
+import com.bymdev.pass2sdk.model.response.RefreshTokenResponse
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import com.bymdev.pass2sdk.model.response.convert.ConvertResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
@@ -16,6 +19,10 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface RestApi {
+
+    @Headers("Content-Type: application/json")
+    @POST(" /auth/refresh-token")
+    fun refreshToken(@Header("$REFRESH_TOKEN_HEADER_NAME") token: String) : Observable<RefreshTokenResponse>
 
     @Headers("Content-Type: application/json")
     @POST("auth/login")
