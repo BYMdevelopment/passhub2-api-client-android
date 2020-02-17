@@ -2,6 +2,7 @@ package com.bymdev.pass2sdk.repository.auth
 
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
+import com.bymdev.pass2sdk.base.addTokenHandler
 import com.bymdev.pass2sdk.base.applySchedulers
 import com.bymdev.pass2sdk.model.request.ChangePasswordRequestBody
 import com.bymdev.pass2sdk.model.request.ResetPasswordRequestBody
@@ -13,14 +14,13 @@ import com.bymdev.pass2sdk.usecase.PrefsUseCase
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class AuthRepositoryImpl(private val context: Context,
-                         private val prefsUseCase: PrefsUseCase) : BaseNetworkRepository(context),
-    AuthRepository {
+class AuthRepositoryImpl(context: Context,
+                         private val prefsUseCase: PrefsUseCase) : BaseNetworkRepository(context), AuthRepository {
 
     override fun logout(): Single<Unit> {
         return restClient
             .logout()
-            .map { prefsUseCase.putToken(null) }
+            .map { prefsUseCase.putToken(null, null) }
             .map { database.accountDao().delete() }
             .applySchedulers()
     }
@@ -32,12 +32,12 @@ class AuthRepositoryImpl(private val context: Context,
             .map { items ->
                 if(!items.isNullOrEmpty()) {
                     items.map {
-                        AccountEntity(it.user_member_rel_id ?: "",
-                            it.access_token ?: "", it.membership?.name, it.default)
+                        AccountEntity(it.user_member_rel_id ?: "", it.access_token ?: "",
+                            it.refresh_token ?: "", it.membership?.name, it.default)
                     }.map {
                         database.accountDao().insert(it)
                         if(it.isDefault) {
-                            prefsUseCase.putToken(it.token)
+                            prefsUseCase.putToken(it.token, it.refresh_token)
                         }
                     }
                 }
@@ -60,7 +60,7 @@ class AuthRepositoryImpl(private val context: Context,
     override fun changePassword(password: String): Observable<Unit> {
         return restClient
             .changePassword(ChangePasswordRequestBody(password))
-            .applySchedulers()
+            .addTokenHandler(refreshTokenHandler)
     }
 
     override fun getToken() = prefsUseCase.getToken()

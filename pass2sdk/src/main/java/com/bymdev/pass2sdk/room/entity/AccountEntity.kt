@@ -8,8 +8,9 @@ data class AccountEntity(
     @PrimaryKey
     var memberId: String,
     var token: String?,
+    val refresh_token: String?,
     var name: String?,
     var isDefault: Boolean = false
 ) {
-    constructor(memberId: String) : this(memberId, "", "")
+    constructor(memberId: String) : this(memberId, "", "", "")
 }

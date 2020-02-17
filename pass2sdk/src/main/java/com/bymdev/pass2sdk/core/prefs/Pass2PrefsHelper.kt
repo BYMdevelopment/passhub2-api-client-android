@@ -9,13 +9,17 @@ import com.google.gson.GsonBuilder
 class Pass2PrefsHelper(private val context: Context) {
 
     private val KEY_TOKEN = "${javaClass.`package`}.TOKEN"
+    private val KEY_REFRESH_TOKEN = "${javaClass.`package`}.REFRESH_TOKEN"
     private val KEY_VENDOR = "${javaClass.`package`}.VENDOR"
 
-    fun putToken(token: String?) {
+    fun putToken(token: String?, refreshToken: String?) {
         putStringPref(KEY_TOKEN, token)
+        putStringPref(KEY_REFRESH_TOKEN, refreshToken)
     }
 
     fun getToken() = getStringPref(KEY_TOKEN)
+
+    fun getRefreshToken() = getStringPref(KEY_REFRESH_TOKEN)
 
     fun putCurrentVendor(vendor: Vendor) {
         putObject(KEY_VENDOR, vendor)

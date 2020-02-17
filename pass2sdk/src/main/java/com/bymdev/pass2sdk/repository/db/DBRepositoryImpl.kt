@@ -30,7 +30,7 @@ class DBRepositoryImpl(context: Context) : BaseNetworkRepository(context),
             }.map {
                 account.isDefault = true
                 database.accountDao().update(account)
-                sharedPreferences.saveToken(account.token)
+                sharedPreferences.saveToken(account.token, account.refresh_token)
             }.applySchedulers()
     }
 }

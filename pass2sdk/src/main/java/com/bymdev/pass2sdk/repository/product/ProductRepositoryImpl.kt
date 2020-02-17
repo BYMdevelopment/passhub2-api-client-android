@@ -2,17 +2,16 @@ package com.bymdev.pass2sdk.repository.product
 
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
-import com.bymdev.pass2sdk.base.applySchedulers
-import com.bymdev.pass2sdk.enums.SortOrder
+import com.bymdev.pass2sdk.base.addTokenHandler
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
+import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
 import io.reactivex.Observable
 
-class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
-    ProductRepository {
+class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), ProductRepository {
 
     private val KEY_VENDOR_CODE = "vendorOwner.code:"
     private val KEY_TYPE = "@type:"
@@ -22,8 +21,7 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
     private val KEY_WITHOUT_CATEGORY = "(!_exists_:categories)"
 
     override fun createOrder(requestBody: OrderRequestBody): Observable<OrderCreateResponse> {
-        return restClient.createOrder(requestBody)
-            .applySchedulers()
+        return restClient.createOrder(requestBody).addTokenHandler(refreshTokenHandler)
     }
 
     override fun getAvailableProducts(
@@ -35,11 +33,10 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context),
         sortBy: SortBy?,
         sortOrder: SortOrder?,
         categories: List<String>?,
-        withOutCategory: Boolean?
+        withoutCategory: Boolean?
     ): Observable<List<ProductResponse>> {
-        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query, categories, withOutCategory),
-            page, offset, getSortOrder(sortBy, sortOrder))
-            .applySchedulers()
+        return restClient.getAvailableProducts(getQueryForAvailableProductsRequest(vendorCode, productType, query, categories, withoutCategory),
+            page, offset, getSortOrder(sortBy, sortOrder)).addTokenHandler(refreshTokenHandler)
     }
 
     private fun getSortOrder(sortBy: SortBy?, sortOrder: SortOrder?): String {
