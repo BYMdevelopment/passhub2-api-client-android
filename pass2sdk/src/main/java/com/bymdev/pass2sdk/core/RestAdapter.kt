@@ -1,6 +1,8 @@
 package com.bymdev.pass2sdk.core
 
 import android.content.Context
+import com.bymdev.pass2sdk.base.AUTH_TOKEN_HEADER_NAME
+import com.bymdev.pass2sdk.base.BEARER
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
