@@ -17,7 +17,7 @@ class VendorRepositoryImpl(private val context: Context) : BaseNetworkRepository
     }
 
     private fun saveCurrentVendorIfOnlyOne(vendors: List<VendorResponse>): List<VendorResponse> {
-        if(vendors.size == 1) {
+        if(vendors.isNotEmpty()) {
             val currentVendor = vendors.first()
             SharedPreferenceRepositoryImpl(context).saveVendor(Vendor(currentVendor.code, currentVendor.name))
         }
