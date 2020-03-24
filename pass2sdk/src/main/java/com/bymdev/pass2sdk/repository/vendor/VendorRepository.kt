@@ -7,4 +7,6 @@ interface VendorRepository {
 
     fun getVendorList(): Observable<List<VendorResponse>>
 
+    fun setCurrentVendor(code: String, name: String)
+
 }

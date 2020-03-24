@@ -16,6 +16,10 @@ class VendorRepositoryImpl(private val context: Context) : BaseNetworkRepository
             .addTokenHandler(refreshTokenHandler)
     }
 
+    override fun setCurrentVendor(code: String, name: String) {
+        SharedPreferenceRepositoryImpl(context).saveVendor(Vendor(code, name))
+    }
+
     private fun saveCurrentVendorIfOnlyOne(vendors: List<VendorResponse>): List<VendorResponse> {
         if(vendors.isNotEmpty()) {
             val currentVendor = vendors.first()
