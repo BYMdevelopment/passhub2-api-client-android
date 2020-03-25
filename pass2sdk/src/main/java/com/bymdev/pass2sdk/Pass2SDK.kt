@@ -9,6 +9,7 @@ import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
+import com.bymdev.pass2sdk.model.response.auth.Vendor
 import com.bymdev.pass2sdk.repository.auth.AuthRepositoryImpl
 import com.bymdev.pass2sdk.repository.category.CategoryRepositoryImpl
 import com.bymdev.pass2sdk.repository.db.DBRepositoryImpl
@@ -103,6 +104,8 @@ class Pass2SDK(private val context: Context) {
     fun getVendorList() = vendorUseCase.getVendorList()
 
     fun getCurrentVendor() = prefsUseCase.getCurrentVendor()
+
+    fun setCurrentVendor(code: String, name: String) = prefsUseCase.putCurrentVendor(Vendor(code, name))
 
     /**
      * Use this method to get
