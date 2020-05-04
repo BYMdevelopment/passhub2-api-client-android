@@ -24,6 +24,14 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
         return restClient.createOrder(requestBody).addTokenHandler(refreshTokenHandler)
     }
 
+    override fun createOrderAsync(requestBody: OrderRequestBody): Observable<OrderCreateResponse> {
+        return restClient.createOrderAsync(requestBody).addTokenHandler(refreshTokenHandler)
+    }
+
+    override fun getOrderById(id: Int): Observable<OrderCreateResponse> {
+        return restClient.getOrderById(id).addTokenHandler(refreshTokenHandler)
+    }
+
     override fun getAvailableProducts(
         vendorCode: String?,
         productType: ProductType?,
