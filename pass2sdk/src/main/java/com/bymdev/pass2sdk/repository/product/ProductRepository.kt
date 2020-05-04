@@ -24,4 +24,8 @@ interface ProductRepository  {
 
     fun createOrder(requestBody: OrderRequestBody): Observable<OrderCreateResponse>
 
+    fun createOrderAsync(requestBody: OrderRequestBody): Observable<OrderCreateResponse>
+
+    fun getOrderById(id: Int): Observable<OrderCreateResponse>
+
 }

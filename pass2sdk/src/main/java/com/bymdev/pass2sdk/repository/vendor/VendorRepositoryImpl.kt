@@ -3,6 +3,7 @@ package com.bymdev.pass2sdk.repository.vendor
 import android.content.Context
 import com.bymdev.pass2sdk.base.BaseNetworkRepository
 import com.bymdev.pass2sdk.base.addTokenHandler
+import com.bymdev.pass2sdk.model.response.VendorConfigurationResponse
 import com.bymdev.pass2sdk.model.response.auth.Vendor
 import com.bymdev.pass2sdk.model.response.vendor.VendorResponse
 import com.bymdev.pass2sdk.repository.prefs.SharedPreferenceRepositoryImpl
@@ -18,6 +19,11 @@ class VendorRepositoryImpl(private val context: Context) : BaseNetworkRepository
 
     override fun setCurrentVendor(code: String, name: String) {
         SharedPreferenceRepositoryImpl(context).saveVendor(Vendor(code, name))
+    }
+
+    override fun checkVendorConfiguration(): Observable<List<VendorConfigurationResponse>> {
+        return restClient.checkVendorConfiguration()
+            .addTokenHandler(refreshTokenHandler)
     }
 
     private fun saveCurrentVendorIfOnlyOne(vendors: List<VendorResponse>): List<VendorResponse> {

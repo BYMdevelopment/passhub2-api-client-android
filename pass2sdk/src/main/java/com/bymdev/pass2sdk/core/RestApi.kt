@@ -5,11 +5,8 @@ import com.bymdev.pass2sdk.base.REFRESH_TOKEN_HEADER_NAME
 import com.bymdev.pass2sdk.model.CategoryResponse
 import com.bymdev.pass2sdk.model.request.*
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
-import com.bymdev.pass2sdk.model.response.AccountResponse
-import com.bymdev.pass2sdk.model.response.PermissionResponse
+import com.bymdev.pass2sdk.model.response.*
 import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
-import com.bymdev.pass2sdk.model.response.ProductResponse
-import com.bymdev.pass2sdk.model.response.RefreshTokenResponse
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import com.bymdev.pass2sdk.model.response.convert.ConvertResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
@@ -82,6 +79,14 @@ interface RestApi {
     fun createOrder(@Body createOrderRequestBody: OrderRequestBody): Observable<OrderCreateResponse>
 
     @Headers("Content-Type: application/json")
+    @POST("orders/api/v1/orders")
+    fun createOrderAsync(@Body createOrderRequestBody: OrderRequestBody): Observable<OrderCreateResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("orders/api/v1/orders/{id}")
+    fun getOrderById(@Path("id") id: Int): Observable<OrderCreateResponse>
+
+    @Headers("Content-Type: application/json")
     @GET("uaa/api/v1/permissions/current")
     fun getPermissions(@Header("$AUTH_TOKEN_HEADER_NAME") token: String?,
                        @Query("msCode") msCode: String?): Observable<List<PermissionResponse>>
@@ -91,4 +96,8 @@ interface RestApi {
     fun getCategories(@Query("page") page: Int,
                       @Query("size") size: Int,
                       @Query("sort") sort: String): Observable<List<CategoryResponse>>
+
+    @Headers("Content-Type: application/json")
+    @GET("uaa/api/v1/vendors/configs")
+    fun checkVendorConfiguration(): Observable<List<VendorConfigurationResponse>>
 }

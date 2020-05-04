@@ -10,5 +10,6 @@ data class OrderCreateResponse(
 	val creationDate: String? = null,
 	val lastChangedBy: String? = null,
 	val orderItems: List<OrderItemsItem?>? = null,
-	val vendorHolder: VendorHolder? = null
+	val vendorHolder: VendorHolder? = null,
+	val paymentInfo: PaymentInfo? = null
 )

@@ -9,6 +9,7 @@ import io.reactivex.ObservableSource
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
 import retrofit2.HttpException
+import retrofit2.Response
 
 class RefreshTokenHandler<T: Observable<Throwable>>(private val restClient: RestApi,
                                                     private val sharedPreferenceRepository: SharedPreferenceRepository) : Function<T, ObservableSource<Any>> {
@@ -36,7 +37,8 @@ class RefreshTokenHandler<T: Observable<Throwable>>(private val restClient: Rest
                             }
 
                             override fun onError(error: PassError) {
-                                it.onError(Throwable(error.message))
+                                val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, null)
+                                it.onError(HttpException(builder))
                             }
                         })
                 }

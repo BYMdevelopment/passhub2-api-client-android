@@ -3,9 +3,9 @@ package com.bymdev.pass2sdk
 import android.content.Context
 import com.bymdev.pass2sdk.base.DEFAULT_OFFSET
 import com.bymdev.pass2sdk.base.DEFAULT_PAGE_NUMBER
-import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
+import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
@@ -137,7 +137,35 @@ class Pass2SDK(private val context: Context) {
      */
     fun setAccountAsCurrent(account: AccountEntity) = dbUseCase.setAccountAsCurrent(account)
 
+    /**
+     * type = POST
+     * Use this method to create order sync,
+     * <p>
+     * This method returns {@link OrderCreateResponse}
+     *
+     * @return  created order
+     */
     fun createOrder(requestBody: OrderRequestBody) = productUseCase.createOrder(requestBody)
+
+    /**
+     * type = POST
+     * Use this method to create order async,
+     * <p>
+     * This method returns {@link OrderCreateResponse}
+     *
+     * @return  created order
+     */
+    fun createOrderAsync(requestBody: OrderRequestBody) = productUseCase.createOrderAsync(requestBody)
+
+    /**
+     * type = GET
+     * Use this method to create order by id,
+     * <p>
+     * This method returns {@link OrderCreateResponse}
+     *
+     * @return  Order by order id
+     */
+    fun getOrderById(id: Int) = productUseCase.getOrderById(id)
 
     /**
      * type = GET
@@ -167,5 +195,16 @@ class Pass2SDK(private val context: Context) {
     fun getCategories(page: Int = DEFAULT_PAGE_NUMBER,
                       size: Int = DEFAULT_OFFSET,
                       sortOrder: String = SortOrder.ASC.type) = categoryUseCase.getCategories(page, size, sortOrder)
+
+    /**
+     * type = GET
+     * Use this method to check
+     * vendor configuration for payments,
+     * <p>
+     * This method returns {@link List<VendorConfigurationResponse>}
+     *
+     * @return  List of configurations
+     */
+    fun checkVendorConfiguration() = vendorUseCase.checkVendorConfiguration()
 
 }

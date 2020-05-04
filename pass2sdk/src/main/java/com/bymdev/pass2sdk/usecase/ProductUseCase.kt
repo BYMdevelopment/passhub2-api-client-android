@@ -15,4 +15,8 @@ class ProductUseCase(private val productRepository: ProductRepository) {
 
     fun createOrder(requestBody: OrderRequestBody) = productRepository.createOrder(requestBody)
 
+    fun createOrderAsync(requestBody: OrderRequestBody) = productRepository.createOrderAsync(requestBody)
+
+    fun getOrderById(id: Int) = productRepository.getOrderById(id)
+
 }
