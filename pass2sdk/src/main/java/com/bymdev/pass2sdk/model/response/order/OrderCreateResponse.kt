@@ -5,7 +5,7 @@ data class OrderCreateResponse(
 	val price: Double? = null,
 	val customFields: List<Any?>? = null,
 	val lastChangeDate: String? = null,
-	val id: Int? = null,
+	val id: Int,
 	val state: State? = null,
 	val creationDate: String? = null,
 	val lastChangedBy: String? = null,
