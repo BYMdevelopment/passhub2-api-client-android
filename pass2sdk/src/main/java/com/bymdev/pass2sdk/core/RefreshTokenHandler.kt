@@ -1,5 +1,6 @@
 package com.bymdev.pass2sdk.core
 
+import com.bymdev.pass2sdk.base.CONTENT_TYPE_APPLICATION_JSON
 import com.bymdev.pass2sdk.base.KEY_HTTP_CODE_UNAUTHORIZED
 import com.bymdev.pass2sdk.base.RETRY_TIME
 import com.bymdev.pass2sdk.model.response.RefreshTokenResponse
@@ -8,6 +9,8 @@ import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
+import okhttp3.MediaType
+import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -37,7 +40,7 @@ class RefreshTokenHandler<T: Observable<Throwable>>(private val restClient: Rest
                             }
 
                             override fun onError(error: PassError) {
-                                val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, null)
+                                val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, ResponseBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), (error.message ?: "").toByteArray()))
                                 it.onError(HttpException(builder))
                             }
                         })

@@ -19,8 +19,7 @@ class MainActivity : AppCompatActivity() {
         btnRequest = findViewById(R.id.requestBtn)
 
         val sdk = Pass2SDK(this)
-        btnLogin.setOnClickListener {
-        }
+        btnLogin.setOnClickListener {}
         btnRequest.setOnClickListener {}
     }
 }
