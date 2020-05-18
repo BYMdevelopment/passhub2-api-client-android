@@ -100,4 +100,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @GET("uaa/api/v1/vendors/configs")
     fun checkVendorConfiguration(): Observable<List<VendorConfigurationResponse>>
+
+    @Headers("Content-Type: application/json")
+    @GET("orders/api/v1/payments/stripe/terminal/connection-token")
+    fun fetchConnectionToken(): Observable<StripeConnectionTokenResponse>
 }
