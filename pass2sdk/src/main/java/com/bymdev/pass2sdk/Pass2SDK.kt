@@ -15,6 +15,7 @@ import com.bymdev.pass2sdk.repository.category.CategoryRepositoryImpl
 import com.bymdev.pass2sdk.repository.db.DBRepositoryImpl
 import com.bymdev.pass2sdk.repository.permission.PermissionsRepositoryImpl
 import com.bymdev.pass2sdk.repository.product.ProductRepositoryImpl
+import com.bymdev.pass2sdk.repository.stripe.StripeRepositoryImpl
 import com.bymdev.pass2sdk.repository.vendor.VendorRepositoryImpl
 import com.bymdev.pass2sdk.repository.voucher.VoucherRepositoryImpl
 import com.bymdev.pass2sdk.room.entity.AccountEntity
@@ -32,6 +33,7 @@ class Pass2SDK(private val context: Context) {
     private val vendorUseCase = VendorUseCase(VendorRepositoryImpl(context))
     private val permissionsUseCase = PermissionsUseCase(PermissionsRepositoryImpl(context))
     private val categoryUseCase = CategoryUseCase(CategoryRepositoryImpl(context))
+    private val stripeUseCase = StripeUseCase(StripeRepositoryImpl(context))
 
     fun signIn(login: String, password: String) = authUseCase.signIn(login, password)
     fun signUp(fName: String, lName: String, login: String, email: String, password: String)
@@ -206,5 +208,16 @@ class Pass2SDK(private val context: Context) {
      * @return  List of configurations
      */
     fun checkVendorConfiguration() = vendorUseCase.checkVendorConfiguration()
+
+    /**
+     * type = GET
+     * Use this method to fetch
+     * connection token for stripe terminal,
+     * <p>
+     * This method returns {@link StripeConnectionTokenResponse}
+     *
+     * @return  Stripe connection token
+     */
+    fun fetchStripeConnectionToken() = stripeUseCase.fetchStripeConnectionToken()
 
 }
