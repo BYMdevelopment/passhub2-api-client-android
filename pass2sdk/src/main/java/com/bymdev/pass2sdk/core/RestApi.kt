@@ -104,4 +104,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @GET("orders/api/v1/payments/stripe/terminal/connection-token")
     fun fetchConnectionToken(): Observable<StripeConnectionTokenResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("orders/api/v1/payments/stripe/terminal/payment-capture")
+    fun confirmPayment(@Body body: ConfirmPaymentRequestBody): Observable<Unit>
 }

@@ -170,6 +170,13 @@ class Pass2SDK(private val context: Context) {
     fun getOrderById(id: Int) = productUseCase.getOrderById(id)
 
     /**
+     * type = POST
+     * Use this method to confirm stripe terminal payment,
+     * <p>
+     */
+    fun confirmPayment(orderId: Int, paymentId: String) = productUseCase.confirmPayment(orderId, paymentId)
+
+    /**
      * type = GET
      * Use this method to get
      * list of current user permissions.
@@ -219,5 +226,6 @@ class Pass2SDK(private val context: Context) {
      * @return  Stripe connection token
      */
     fun fetchStripeConnectionToken() = stripeUseCase.fetchStripeConnectionToken()
+
 
 }

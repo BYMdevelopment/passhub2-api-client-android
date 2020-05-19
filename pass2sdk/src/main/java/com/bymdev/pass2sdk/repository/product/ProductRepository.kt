@@ -28,4 +28,6 @@ interface ProductRepository  {
 
     fun getOrderById(id: Int): Observable<OrderCreateResponse>
 
+    fun confirmPayment(orderId: Int, paymentId: String): Observable<Unit>
+
 }
