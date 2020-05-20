@@ -13,5 +13,6 @@ data class ProductResponse(
 	val state: String? = null,
 	val sku: String? = null,
 	val vendorHolder: VendorHolder? = null,
-	val categories: List<CategoryResponse>? = null
+	val categories: List<CategoryResponse>? = null,
+	val images: List<ProductImageResponse> = emptyList()
 )
