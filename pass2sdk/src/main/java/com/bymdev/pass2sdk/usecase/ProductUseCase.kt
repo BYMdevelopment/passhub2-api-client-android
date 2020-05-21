@@ -1,11 +1,10 @@
 package com.bymdev.pass2sdk.usecase
 
-import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
+import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.repository.product.ProductRepository
-import io.reactivex.Observable
 
 class ProductUseCase(private val productRepository: ProductRepository) {
 
@@ -21,5 +20,7 @@ class ProductUseCase(private val productRepository: ProductRepository) {
     fun getOrderById(id: Int) = productRepository.getOrderById(id)
 
     fun confirmPayment(orderId: Int, paymentId: String) = productRepository.confirmPayment(orderId, paymentId)
+
+    fun sendOrderOnEmail(id: Int, email: String) = productRepository.sendOrderOnEmail(id, email)
 
 }

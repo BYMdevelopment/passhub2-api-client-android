@@ -7,6 +7,7 @@ import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.model.request.ConfirmPaymentRequestBody
+import com.bymdev.pass2sdk.model.request.SendOrderRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
@@ -35,6 +36,10 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
 
     override fun confirmPayment(orderId: Int, paymentId: String): Observable<Unit> {
         return restClient.confirmPayment(ConfirmPaymentRequestBody(orderId, paymentId)).addTokenHandler(refreshTokenHandler)
+    }
+
+    override fun sendOrderOnEmail(id: Int, email: String): Observable<Unit> {
+        return restClient.sendOrderOnEmail(id, SendOrderRequestBody(email)).addTokenHandler(refreshTokenHandler)
     }
 
     override fun getAvailableProducts(
