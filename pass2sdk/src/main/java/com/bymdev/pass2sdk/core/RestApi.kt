@@ -108,4 +108,8 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("orders/api/v1/payments/stripe/terminal/payment-capture")
     fun confirmPayment(@Body body: ConfirmPaymentRequestBody): Observable<Unit>
+
+    @Headers("Content-Type: application/json")
+    @POST("orders/api/v1/orders/mail/{id}")
+    fun sendOrderOnEmail(@Path("id") id: Int, @Body body: SendOrderRequestBody): Observable<Unit>
 }

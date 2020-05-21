@@ -171,6 +171,14 @@ class Pass2SDK(private val context: Context) {
 
     /**
      * type = POST
+     * Use this method to send order receipt,
+     * on your email address
+     * <p>
+     */
+    fun sendOrderOnEmail(id: Int, email: String) = productUseCase.sendOrderOnEmail(id, email)
+
+    /**
+     * type = POST
      * Use this method to confirm stripe terminal payment,
      * <p>
      */
