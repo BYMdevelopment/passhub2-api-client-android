@@ -43,6 +43,11 @@ class RefreshTokenHandler<T: Observable<Throwable>>(private val restClient: Rest
                                 val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, ResponseBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), (error.message ?: "").toByteArray()))
                                 it.onError(HttpException(builder))
                             }
+
+                            override fun unauthorized() {
+                                val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, ResponseBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), "".toByteArray()))
+                                it.onError(HttpException(builder))
+                            }
                         })
                 }
             } else {
