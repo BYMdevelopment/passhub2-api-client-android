@@ -6,6 +6,7 @@ import com.bymdev.pass2sdk.base.RETRY_TIME
 import com.bymdev.pass2sdk.model.response.RefreshTokenResponse
 import com.bymdev.pass2sdk.repository.prefs.SharedPreferenceRepository
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableSource
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
@@ -40,13 +41,11 @@ class RefreshTokenHandler<T: Observable<Throwable>>(private val restClient: Rest
                             }
 
                             override fun onError(error: PassError) {
-                                val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, ResponseBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), (error.message ?: "").toByteArray()))
-                                it.onError(HttpException(builder))
+                                sendError(it, error)
                             }
 
                             override fun unauthorized() {
-                                val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, ResponseBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON), "".toByteArray()))
-                                it.onError(HttpException(builder))
+                                sendError(it)
                             }
                         })
                 }
@@ -54,5 +53,11 @@ class RefreshTokenHandler<T: Observable<Throwable>>(private val restClient: Rest
                 Observable.error<Any>(t.first)
             }
         }
+    }
+
+    private fun sendError(emitter: ObservableEmitter<RefreshTokenResponse>, error: PassError? = null) {
+        val builder = Response.error<Any>(KEY_HTTP_CODE_UNAUTHORIZED, ResponseBody.create(MediaType.parse(CONTENT_TYPE_APPLICATION_JSON),
+            (error?.message ?: "").toByteArray()))
+        emitter.onError(HttpException(builder))
     }
 }
