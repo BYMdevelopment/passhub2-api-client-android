@@ -1,5 +1,6 @@
 package com.bymdev.pass2sdk.usecase
 
+import com.bymdev.pass2sdk.model.request.ChangePasswordRequestBody
 import com.bymdev.pass2sdk.repository.auth.AuthRepository
 
 class AuthUseCase(private val authRepository: AuthRepository)  {
@@ -13,7 +14,7 @@ class AuthUseCase(private val authRepository: AuthRepository)  {
 
     fun resetPassword(email: String) = authRepository.resetPassword(email)
 
-    fun changePassword(password: String) = authRepository.changePassword(password)
+    fun changePassword(body: ChangePasswordRequestBody) = authRepository.changePassword(body)
 
     fun getToken() = authRepository.getToken()
 

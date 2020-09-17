@@ -57,9 +57,9 @@ class AuthRepositoryImpl(context: Context,
             .applySchedulers()
     }
 
-    override fun changePassword(password: String): Observable<Unit> {
+    override fun changePassword(body: ChangePasswordRequestBody): Observable<Unit> {
         return restClient
-            .changePassword(ChangePasswordRequestBody(password))
+            .changePassword(body)
             .addTokenHandler(refreshTokenHandler)
     }
 

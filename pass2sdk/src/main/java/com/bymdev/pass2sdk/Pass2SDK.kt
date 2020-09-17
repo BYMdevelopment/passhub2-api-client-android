@@ -6,6 +6,7 @@ import com.bymdev.pass2sdk.base.DEFAULT_PAGE_NUMBER
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.enums.SortOrder
+import com.bymdev.pass2sdk.model.request.ChangePasswordRequestBody
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
@@ -40,7 +41,7 @@ class Pass2SDK(private val context: Context) {
             = authUseCase.signUp(fName, lName, login, email, password)
     fun logout() = authUseCase.logout()
     fun resetPassword(email: String) = authUseCase.resetPassword(email)
-    fun changePassword(password: String) = authUseCase.changePassword(password)
+    fun changePassword(body: ChangePasswordRequestBody) = authUseCase.changePassword(body)
 
     /**
      * Returns a list of products that available for validation
