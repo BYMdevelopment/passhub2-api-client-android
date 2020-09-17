@@ -1,3 +1,6 @@
 package com.bymdev.pass2sdk.model.request
 
-data class ChangePasswordRequestBody(val password: String)
+data class ChangePasswordRequestBody(
+    val newPassword: String,
+    val oldPassword: String
+)
