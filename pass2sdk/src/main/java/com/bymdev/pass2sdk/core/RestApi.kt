@@ -92,7 +92,7 @@ interface RestApi {
                        @Query("msCode") msCode: String?): Observable<List<PermissionResponse>>
 
     @Headers("Content-Type: application/json")
-    @GET("products/api/v1/categories")
+    @GET("classifier/api/v1/products/categories")
     fun getCategories(@Query("page") page: Int,
                       @Query("size") size: Int,
                       @Query("sort") sort: String): Observable<List<CategoryResponse>>
