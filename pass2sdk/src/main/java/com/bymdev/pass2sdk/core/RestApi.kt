@@ -6,10 +6,11 @@ import com.bymdev.pass2sdk.model.CategoryResponse
 import com.bymdev.pass2sdk.model.request.*
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.*
-import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.auth.AuthResponse
 import com.bymdev.pass2sdk.model.response.convert.ConvertResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
+import com.bymdev.pass2sdk.model.response.orders.OrdersResponse
+import com.bymdev.pass2sdk.model.response.validate.ValidationResponse
 import com.bymdev.pass2sdk.model.response.vendor.VendorResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -81,6 +82,15 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @POST("orders/api/v1/orders")
     fun createOrderAsync(@Body createOrderRequestBody: OrderRequestBody): Observable<OrderCreateResponse>
+
+    @Headers("Content-Type: application/json")
+    @GET("/orders/api/v1/_search/orders")
+    fun getOrders(@Query("from") from: String,
+                  @Query("page") page: Int,
+                  @Query("size") size: Int,
+                  @Query("sort") sortOrder: String?,
+                  @Query("query") query: String?
+    ): Observable<List<OrdersResponse>>
 
     @Headers("Content-Type: application/json")
     @GET("orders/api/v1/orders/{id}")
