@@ -11,6 +11,7 @@ import com.bymdev.pass2sdk.model.request.SendOrderRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
+import com.bymdev.pass2sdk.model.response.orders.OrdersResponse
 import io.reactivex.Observable
 
 class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), ProductRepository {
@@ -40,6 +41,18 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
 
     override fun sendOrderOnEmail(id: Int, email: String): Observable<Unit> {
         return restClient.sendOrderOnEmail(id, SendOrderRequestBody(email)).addTokenHandler(refreshTokenHandler)
+    }
+
+    override fun getOrders(
+        from: String,
+        page: Int,
+        query: String?,
+        size: Int,
+        sortOrder: SortOrder,
+        sortOrderField: String
+    ): Observable<List<OrdersResponse>> {
+        return restClient.getOrders(from, page, size, "$sortOrderField,${sortOrder.type}", query)
+            .addTokenHandler(refreshTokenHandler)
     }
 
     override fun getAvailableProducts(

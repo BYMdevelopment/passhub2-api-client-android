@@ -2,6 +2,7 @@ package com.bymdev.pass2sdk
 
 import android.content.Context
 import com.bymdev.pass2sdk.base.DEFAULT_OFFSET
+import com.bymdev.pass2sdk.base.DEFAULT_ORDERS_SORT_FIELD
 import com.bymdev.pass2sdk.base.DEFAULT_PAGE_NUMBER
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
@@ -169,6 +170,17 @@ class Pass2SDK(private val context: Context) {
      * @return  Order by order id
      */
     fun getOrderById(id: Int) = productUseCase.getOrderById(id)
+
+    /**
+     * type = GET
+     * Use this method to fetch orders report,
+     * <p>
+     * This method returns {@link OrdersResponse}
+     *
+     * @return  Orders
+     */
+    fun getOrders(from: String, page: Int = 0, query: String? = null, size: Int = 20, sortOrder: SortOrder = SortOrder.DESC, sortOrderField: String = DEFAULT_ORDERS_SORT_FIELD)
+            = productUseCase.getOrders(from, page, query, size, sortOrder, sortOrderField)
 
     /**
      * type = POST

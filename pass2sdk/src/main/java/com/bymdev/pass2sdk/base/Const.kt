@@ -9,3 +9,4 @@ const val KEY_HTTP_CODE_UNAUTHORIZED = 401
 const val KEY_HTTP_CODE_FORBIDDEN = 403
 const val RETRY_TIME = 2
 const val CONTENT_TYPE_APPLICATION_JSON = "application/json"
+const val DEFAULT_ORDERS_SORT_FIELD = "creationDate"

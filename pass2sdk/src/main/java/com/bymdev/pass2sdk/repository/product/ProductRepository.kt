@@ -6,6 +6,7 @@ import com.bymdev.pass2sdk.enums.SortOrder
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
+import com.bymdev.pass2sdk.model.response.orders.OrdersResponse
 import io.reactivex.Observable
 
 interface ProductRepository  {
@@ -31,5 +32,7 @@ interface ProductRepository  {
     fun confirmPayment(orderId: Int, paymentId: String): Observable<Unit>
 
     fun sendOrderOnEmail(id: Int, email: String): Observable<Unit>
+
+    fun getOrders(from: String, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String): Observable<List<OrdersResponse>>
 
 }
