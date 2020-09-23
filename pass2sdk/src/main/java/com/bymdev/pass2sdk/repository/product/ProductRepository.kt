@@ -33,6 +33,6 @@ interface ProductRepository  {
 
     fun sendOrderOnEmail(id: Int, email: String): Observable<Unit>
 
-    fun getOrders(from: String, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String): Observable<List<OrdersResponse>>
+    fun getOrders(from: String, till: String? = null, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String): Observable<List<OrdersResponse>>
 
 }
