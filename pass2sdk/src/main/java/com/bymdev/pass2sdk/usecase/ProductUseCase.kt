@@ -23,7 +23,7 @@ class ProductUseCase(private val productRepository: ProductRepository) {
 
     fun sendOrderOnEmail(id: Int, email: String) = productRepository.sendOrderOnEmail(id, email)
 
-    fun getOrders(from: String, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String)
-            = productRepository.getOrders(from, page, query, size, sortOrder, sortOrderField)
+    fun getOrders(from: String, till: String? = null, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String)
+            = productRepository.getOrders(from, till, page, query, size, sortOrder, sortOrderField)
 
 }

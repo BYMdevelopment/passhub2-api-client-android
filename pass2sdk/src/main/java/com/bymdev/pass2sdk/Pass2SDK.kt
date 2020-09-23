@@ -179,8 +179,8 @@ class Pass2SDK(private val context: Context) {
      *
      * @return  Orders
      */
-    fun getOrders(from: String, page: Int = 0, query: String? = null, size: Int = 20, sortOrder: SortOrder = SortOrder.DESC, sortOrderField: String = DEFAULT_ORDERS_SORT_FIELD)
-            = productUseCase.getOrders(from, page, query, size, sortOrder, sortOrderField)
+    fun getOrders(from: String, till: String? = null, page: Int = 0, query: String? = null, size: Int = 20, sortOrder: SortOrder = SortOrder.DESC, sortOrderField: String = DEFAULT_ORDERS_SORT_FIELD)
+            = productUseCase.getOrders(from, till, page, query, size, sortOrder, sortOrderField)
 
     /**
      * type = POST

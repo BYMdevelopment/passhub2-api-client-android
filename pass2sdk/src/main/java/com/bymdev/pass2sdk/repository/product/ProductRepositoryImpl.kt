@@ -45,13 +45,14 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
 
     override fun getOrders(
         from: String,
+        till: String?,
         page: Int,
         query: String?,
         size: Int,
         sortOrder: SortOrder,
         sortOrderField: String
     ): Observable<List<OrdersResponse>> {
-        return restClient.getOrders(from, page, size, "$sortOrderField,${sortOrder.type}", query)
+        return restClient.getOrders(from, till, page, size, "$sortOrderField,${sortOrder.type}", query)
             .addTokenHandler(refreshTokenHandler)
     }
 

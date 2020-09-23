@@ -86,6 +86,7 @@ interface RestApi {
     @Headers("Content-Type: application/json")
     @GET("/orders/api/v1/_search/orders")
     fun getOrders(@Query("from") from: String,
+                  @Query("till") till: String?,
                   @Query("page") page: Int,
                   @Query("size") size: Int,
                   @Query("sort") sortOrder: String?,
