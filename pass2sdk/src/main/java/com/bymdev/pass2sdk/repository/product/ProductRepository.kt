@@ -35,4 +35,5 @@ interface ProductRepository  {
 
     fun getOrders(from: String, till: String? = null, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String): Observable<List<OrdersResponse>>
 
+    fun cancelOrder(body: OrdersResponse): Observable<OrdersResponse>
 }

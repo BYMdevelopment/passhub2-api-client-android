@@ -12,6 +12,7 @@ import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.auth.Vendor
+import com.bymdev.pass2sdk.model.response.orders.OrdersResponse
 import com.bymdev.pass2sdk.repository.auth.AuthRepositoryImpl
 import com.bymdev.pass2sdk.repository.category.CategoryRepositoryImpl
 import com.bymdev.pass2sdk.repository.db.DBRepositoryImpl
@@ -188,6 +189,16 @@ class Pass2SDK(private val context: Context) {
         sortOrder: SortOrder = SortOrder.DESC,
         sortOrderField: String = DEFAULT_ORDERS_SORT_FIELD)
             = productUseCase.getOrders(from, till, page, query, size, sortOrder, sortOrderField)
+
+    /**
+     * type = PUT
+     * Use this method to cancel order,
+     * <p>
+     * This method returns {@link OrdersResponse}
+     *
+     * @return  Canceled order response
+     */
+    fun cancelOrder(body: OrdersResponse) = productUseCase.cancelOrder(body)
 
     /**
      * type = POST

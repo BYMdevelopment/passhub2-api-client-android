@@ -56,6 +56,11 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
             .addTokenHandler(refreshTokenHandler)
     }
 
+    override fun cancelOrder(body: OrdersResponse): Observable<OrdersResponse> {
+        return restClient.cancelOrder(body)
+            .addTokenHandler(refreshTokenHandler)
+    }
+
     override fun getAvailableProducts(
         vendorCode: String?,
         productType: ProductType?,
