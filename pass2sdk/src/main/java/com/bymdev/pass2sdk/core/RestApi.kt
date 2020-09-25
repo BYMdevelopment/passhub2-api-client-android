@@ -94,6 +94,10 @@ interface RestApi {
     ): Observable<List<OrdersResponse>>
 
     @Headers("Content-Type: application/json")
+    @PUT("/orders/api/v1/orders/cancel")
+    fun cancelOrder(@Body body: OrdersResponse): Observable<OrdersResponse>
+
+    @Headers("Content-Type: application/json")
     @GET("orders/api/v1/orders/{id}")
     fun getOrderById(@Path("id") id: Int): Observable<OrderCreateResponse>
 
