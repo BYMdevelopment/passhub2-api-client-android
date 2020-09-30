@@ -6,6 +6,7 @@ import com.bymdev.pass2sdk.base.addTokenHandler
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.enums.SortOrder
+import com.bymdev.pass2sdk.model.request.CancelOrderItemsRequestBody
 import com.bymdev.pass2sdk.model.request.ConfirmPaymentRequestBody
 import com.bymdev.pass2sdk.model.request.SendOrderRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
@@ -58,6 +59,11 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
 
     override fun cancelOrder(body: OrdersResponse): Observable<OrdersResponse> {
         return restClient.cancelOrder(body)
+            .addTokenHandler(refreshTokenHandler)
+    }
+
+    override fun cancelOrderItems(body: CancelOrderItemsRequestBody): Observable<Any> {
+        return restClient.cancelOrderItems(body)
             .addTokenHandler(refreshTokenHandler)
     }
 

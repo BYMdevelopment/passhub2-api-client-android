@@ -7,6 +7,7 @@ import com.bymdev.pass2sdk.base.DEFAULT_PAGE_NUMBER
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.enums.SortOrder
+import com.bymdev.pass2sdk.model.request.CancelOrderItemsRequestBody
 import com.bymdev.pass2sdk.model.request.ChangePasswordRequestBody
 import com.bymdev.pass2sdk.model.request.ValidationRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
@@ -199,6 +200,15 @@ class Pass2SDK(private val context: Context) {
      * @return  Canceled order response
      */
     fun cancelOrder(body: OrdersResponse) = productUseCase.cancelOrder(body)
+
+    /**
+     * type = PUT
+     * Use this method to cancel order items,
+     * <p>
+     * This method returns {@link Unit}
+     *
+     */
+    fun cancelOrderItems(body: CancelOrderItemsRequestBody) = productUseCase.cancelOrderItems(body)
 
     /**
      * type = POST

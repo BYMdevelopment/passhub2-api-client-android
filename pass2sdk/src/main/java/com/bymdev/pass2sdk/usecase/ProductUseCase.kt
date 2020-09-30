@@ -3,6 +3,7 @@ package com.bymdev.pass2sdk.usecase
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.enums.SortOrder
+import com.bymdev.pass2sdk.model.request.CancelOrderItemsRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.orders.OrdersResponse
 import com.bymdev.pass2sdk.repository.product.ProductRepository
@@ -28,5 +29,7 @@ class ProductUseCase(private val productRepository: ProductRepository) {
             = productRepository.getOrders(from, till, page, query, size, sortOrder, sortOrderField)
 
     fun cancelOrder(body: OrdersResponse) = productRepository.cancelOrder(body)
+
+    fun cancelOrderItems(body: CancelOrderItemsRequestBody) = productRepository.cancelOrderItems(body)
 
 }

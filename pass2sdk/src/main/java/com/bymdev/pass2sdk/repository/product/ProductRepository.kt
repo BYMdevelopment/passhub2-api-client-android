@@ -3,6 +3,7 @@ package com.bymdev.pass2sdk.repository.product
 import com.bymdev.pass2sdk.enums.ProductType
 import com.bymdev.pass2sdk.enums.SortBy
 import com.bymdev.pass2sdk.enums.SortOrder
+import com.bymdev.pass2sdk.model.request.CancelOrderItemsRequestBody
 import com.bymdev.pass2sdk.model.request.order.OrderRequestBody
 import com.bymdev.pass2sdk.model.response.ProductResponse
 import com.bymdev.pass2sdk.model.response.order.OrderCreateResponse
@@ -36,4 +37,6 @@ interface ProductRepository  {
     fun getOrders(from: String, till: String? = null, page: Int, query: String?, size: Int, sortOrder: SortOrder, sortOrderField: String): Observable<List<OrdersResponse>>
 
     fun cancelOrder(body: OrdersResponse): Observable<OrdersResponse>
+
+    fun cancelOrderItems(body: CancelOrderItemsRequestBody): Observable<Any>
 }
