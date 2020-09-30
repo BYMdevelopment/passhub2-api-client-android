@@ -62,7 +62,7 @@ class ProductRepositoryImpl(context: Context) : BaseNetworkRepository(context), 
             .addTokenHandler(refreshTokenHandler)
     }
 
-    override fun cancelOrderItems(body: CancelOrderItemsRequestBody): Observable<Any> {
+    override fun cancelOrderItems(body: CancelOrderItemsRequestBody): Observable<Unit> {
         return restClient.cancelOrderItems(body)
             .addTokenHandler(refreshTokenHandler)
     }

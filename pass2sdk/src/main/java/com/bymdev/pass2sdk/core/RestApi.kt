@@ -99,7 +99,7 @@ interface RestApi {
 
     @Headers("Content-Type: application/json")
     @PUT("/orders/api/v1/orders/cancel/items")
-    fun cancelOrderItems(@Body body: CancelOrderItemsRequestBody): Observable<Any>
+    fun cancelOrderItems(@Body body: CancelOrderItemsRequestBody): Observable<Unit>
 
     @Headers("Content-Type: application/json")
     @GET("orders/api/v1/orders/{id}")

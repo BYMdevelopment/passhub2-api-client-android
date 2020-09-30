@@ -38,5 +38,5 @@ interface ProductRepository  {
 
     fun cancelOrder(body: OrdersResponse): Observable<OrdersResponse>
 
-    fun cancelOrderItems(body: CancelOrderItemsRequestBody): Observable<Any>
+    fun cancelOrderItems(body: CancelOrderItemsRequestBody): Observable<Unit>
 }
